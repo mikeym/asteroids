@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Asteroids in HTML5</title>
+    <meta name="description"
+              content="Asteroids game developed by Mikey Micheletti for the UW HTML5 Game Development course, Winter 2013.">
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="scripts/modernizr-2.6.2.min.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <h1>Asteroids in HTML5</h1>
+      </header>
+
+      <div id="canvasframe">
+        <canvas id="gamecanvas" width="640" height="480">
+          Alas for your ancient coal-fired browser that doesn't support the canvas element.
+          No game for you until you upgrade. Maybe try
+          <a href="http://www.mozilla.org/en-US/firefox/new/">Firefox</a> or
+          <a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a>.
+        </canvas>
+      </div>
+
+      <h2>Keyboard Controls:</h2>
+      <ul>
+        <li>Left Arrow: Rotate spaceship left.</li>
+        <li>Right Arrow: Rotate spaceship right.</li>
+        <li>Up Arrow: Spaceship thrusters.</li>
+        <li>Down Arrow: Shields.</li>
+        <li>Spacebar: Fire main pew-pew weapon.</li>
+        <li>Escape: Pause game.</li>
+      </ul>
+
+      <p>Work-In-Progress for the UW's HTML5 Web and Mobile Game Development program,
+        Winter 2013.</p>
+
+      <p>
+        Props to those who led the way:
+        <a href="http://www.kevs3d.co.uk/dev/asteroids/">Kevin Roast</a>
+        <a href="http://dougmcinnes.com/html-5-asteroids/">Doug McInnes</a>
+        <a href="http://atari.com/arcade/#!/arcade/asteroids/play">Atari</a>
+      </p>
+
+      <footer>
+        <p>
+          Mikey Micheletti:
+          <a href="http://www.deepgraysea.com">deepgraysea.com</a>
+          <a href="https://github.com/mikeym/asteroids">GitHub Asteroids Project</a>
+        </p>
+      </footer>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="scripts/jquery-1.8.3.min.js"><\/script>')</script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>

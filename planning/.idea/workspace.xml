@@ -20,10 +20,28 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="proposal.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="proposal.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proposal.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="14" selection-start="463" selection-end="463" vertical-scroll-proportion="0.46605745">
+            <state line="125" column="0" selection-start="3773" selection-end="3773" vertical-scroll-proportion="-20.923077">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="asteroids-project-status.txt" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/asteroids-project-status.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="60" selection-start="102" selection-end="102" vertical-scroll-proportion="0.021356784">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="asteroids-requirements.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/asteroids-requirements.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="53" column="35" selection-start="1881" selection-end="1881" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -39,7 +57,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
+        <option value="$PROJECT_DIR$/asteroids-requirements.txt" />
         <option value="$PROJECT_DIR$/proposal.html" />
+        <option value="$PROJECT_DIR$/asteroids-project-status.txt" />
       </list>
     </option>
   </component>
@@ -91,7 +111,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -112,12 +131,15 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="project.propDebugger" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../site" />
+    <property name="FullScreen" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
@@ -164,10 +186,10 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24213287" sideWeight="0.998782" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24213287" sideWeight="0.08991495" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24213287" sideWeight="0.90157956" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24213287" sideWeight="0.08140948" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -235,14 +257,56 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/proposal.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="3" selection-start="1916" selection-end="1916" vertical-scroll-proportion="0.0">
+        <state line="125" column="0" selection-start="3773" selection-end="3773" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/asteroids-requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="35" selection-start="1881" selection-end="1881" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/proposal.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="14" selection-start="463" selection-end="463" vertical-scroll-proportion="0.46605745">
+        <state line="106" column="37" selection-start="2650" selection-end="2650" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/asteroids-requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="42" selection-start="1619" selection-end="1619" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proposal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="89" column="3" selection-start="1916" selection-end="1916" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/asteroids-requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="35" selection-start="1881" selection-end="1881" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proposal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="0" selection-start="3773" selection-end="3773" vertical-scroll-proportion="-20.923077">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/asteroids-project-status.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="60" selection-start="102" selection-end="102" vertical-scroll-proportion="0.021356784">
           <folding />
         </state>
       </provider>

@@ -1,0 +1,202 @@
+/* HTML5 Boilerplate styles */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+body {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+img {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* game styles */
+
+@font-face {
+  font-family: 'BPdotsSquaresLight';
+  src: url('../fonts/BPdotsSquareLight-webfont.eot');
+  src: url('../fonts/BPdotsSquareLight-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/BPdotsSquareLight-webfont.woff') format('woff'),
+  url('../fonts/BPdotsSquareLight-webfont.ttf') format('truetype'),
+  url('../fonts/BPdotsSquareLight-webfont.svg#BPdotsSquaresLight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: #000;
+  background-image: url("../images/asteroid-bkgd-dark.jpg");
+  background-position: top left;
+  background-repeat: no-repeat;
+  font-family: BPdotsSquaresLight, sans-serif;
+  color: #00dddd;
+}
+
+#container {
+  margin: 0 auto;
+  padding:0;
+  width: 644px;
+}
+
+h1 {
+  margin: 10px 10px 5px 10px;
+  font-size: 175%;
+  font-weight: normal;
+}
+
+h2 {
+  margin: 5px 10px 0px 10px;
+  font-size: 125%;
+  font-weight: normal;
+}
+
+ul {
+  margin: 0px 10px;
+  font-size: 90%;
+  font-weight: normal;
+  list-style-type: none;
+  list-style-position: inside;
+  padding-left: 0;
+}
+
+li:before {
+  content: "\002A \0020";
+}
+
+p {
+  margin: 10px;
+  font-size: 90%;
+}
+
+a, a:visited, a:link {
+  font-size: 90%;
+  color: #00dddd;
+  text-decoration: none;
+  border-bottom: 1px dotted #009999;
+}
+
+a:hover, a:active {
+  color: #00ffff;
+  border-bottom: 1px dotted #00bbbb;
+}
+
+#canvasframe {
+  width: 644px;
+  height: 484px;
+  padding: 0;
+  background-color: #000;
+  margin: 0 auto;
+  -webkit-border-radius: 21px;
+  border-radius: 21px;
+  border: 2px #222 solid;
+  -webkit-box-shadow: 0px 0px 15px 15px rgba(147, 150, 135, 0.3);
+  box-shadow: 0px 0px 15px 15px rgba(147, 150, 135, 0.3);
+}
+
+#gamecanvas {
+  margin: 1px;
+  padding: 0;
+  border: 1px #222 solid;
+  -webkit-border-radius: 21px;
+  border-radius: 21px;
+  -webkit-box-shadow: 0px 0px 3px 3px rgba(147, 150, 135, 0.3);
+  box-shadow: 0px 0px 3px 3px rgba(147, 150, 135, 0.3);
+}
+
+footer p {
+  margin: 10px 10px 20px 10px;
+}

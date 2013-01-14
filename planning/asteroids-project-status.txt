@@ -1,0 +1,83 @@
+Exported from Workflowy project 1/13/2013
+https://workflowy.com/#/63189924-1b04-86af-696f-92cf3f33b301
+
+- School
+  - Asteroids
+    - Week 1 (1/9) - Preliminaries
+      - [COMPLETE] Setup [3 hours]
+        - [COMPLETE] Create WorkFlowy project planning account
+        - [COMPLETE] Rough out project plan
+        - [COMPLETE] Create Asteroids project (public) on GitHub and sync locally
+        - [COMPLETE] Decide on text editor and get it configured decently with JSHint etc
+      - [COMPLETE] Research Asteroids game [3 hours]
+        - [COMPLETE] Find online examples to play and get a little practice
+        - [COMPLETE] Read up on the game a bit to learn more
+        - [COMPLETE] Bookmark some good sources to refer to later
+      - [COMPLETE] Create Proposal [3 hours]
+        - [COMPLETE] Create illustration
+        - [COMPLETE] Write proposal
+        - [COMPLETE] Export this project plan to GitHub site for display
+      - [COMPLETE] Define Asteroids game requirements [3 hours]
+        - [COMPLETE] Define artwork needed
+        - [COMPLETE] Define keyboard actions needed
+        - [COMPLETE] Define in-game behaviors
+        - [COMPLETE] Define leaderboard and scoring
+        - [COMPLETE] Identify MMF items and deferable items
+      - [COMPLETE] Rough out project code framework [5 hours]
+        - [COMPLETE] Host HTML page design, layout, code
+        - [COMPLETE] Folder tree
+        - [COMPLETE] Canvas loads and does something
+      - Prepare for Week 2 demo on 1/16
+    - Week 2 (1/16) - Art and Asset Management, Engine
+      - Gameplay Artwork [8 hours]
+        - Determine multi-state graphics and make a list
+        - Decide on a palette and style
+        - [COMPLETE] Find suitable in-game font
+        - Create graphics
+        - Create sprite sheet of graphics
+      - Asset management [5]
+        - Asset management code module
+        - Sprite sheet keywords
+        - Sprite sheet unit test
+      - Engine [4]
+        - Understand requirements
+        - Rough out Engine module
+        - Basic functionality
+        - Unit tests
+    - Week 3 (1/23) - Physics and Basic Gameplay
+      - Create Object Model
+      - Create basics of Physics module
+      - Create gameplay components
+        - Ship
+        - Asteroids
+        - Saucers
+      - Setup basic gameplay and controls
+        - Screen wrapping
+      - Splash screen [3]
+        - Asteroids move at random
+        - Press space to begin message
+      - Prep for Week 4 engine demo on 1/30
+    - Week 4 (1/30) - AI, Refine Physics and Gameplay
+      - Refine physics module
+        - Asteroid breakup
+      - Refine gameplay and controls
+      - Setup basic AI module and state machine
+    - Week 5 (2/6) - Refine AI, Physics and Gameplay
+      - Level testing simulator
+      - Game refinement, testing, tuning
+      - Prepare for Demo 2/13/2013
+    - Week 6 (2/13) - Server Components
+      - Server components hosted locally
+      - Setup Node.js
+      - Setup MongoDB
+      - Leaderboard code
+      - Achievements code
+    - Week 7 - (2/20) - Alpha
+      - Sign in or name entry for high score
+      - Server components hosted remotely
+      - Playable game
+      - Prep for demo on 2/27
+    - Week 8 - (2/27) - Refine Project
+    - Week 9 - (3/6) - Complete Project
+      - Prep for final project demo on 3/13
+    - Week 10 - Demo only, last class 3/13

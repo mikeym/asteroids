@@ -1,0 +1,93 @@
+Asteroids Game Requirements
+Mikey Micheletti 1/12/2013
+Identifying gameplay needs to complete Asteroids HTML5 game within Winter Quarter 2013.
+
+Artwork
+-------
+Spaceship
+Spaceship with engines on
+Spaceship exploding
+Spaceship with shield up
+Pew-Pew rays being fired
+Large Asteroids
+Large Asteroids exploding
+Medium Asteroids
+Medium Asteroids exploding
+Small Asteroids
+Small Asteroids exploding and disintegrating
+Large Alien Saucer
+Large Alien Saucer exploding
+Small Alien Saucer
+Small Alien Saucer exploding
+Alien bombs
+
+Keyboard Interactions
+---------------------
+Left Arrow - Rotate ship to the left
+Right Arrow - Rotate ship to the right
+Up Arrow - Thruster
+Down Arrow - Shields
+Spacebar - Fire Pew-Pew Weapon
+Escape - Pause game
+
+Game Behaviors and Scoring
+--------------------------
+Begin with 3 Lives.
+Shoot Large Asteroid - Score 20. It becomes two Medium Asteroids.
+Shoot Medium Asteroid - Score 50. It becomes two Small Asteroids.
+Shoot Small Asteroid - Score 100. It disintegrates.
+Shoot Large Saucer - Score 200. It disintegrates.
+Shoot Small Saucer - Score 1000. It disintegrates.
+Hit by Asteroid - Lose Life.
+Hit by Saucer fire - Lose Life.
+Each 10000 points - Gain Extra Life.
+A maximum of 26 Asteroids of any size are allowed onscreen.
+All Asteroids are initially Large.
+When you destroy a Large Asteroid when 26 are on screen, a single Medium Asteroid replaces it.
+When you destroy a Medium Asteroid when 26 are on screen, a single Small Asteroid replaces it.
+Medium Asteroids fly faster than Large Asteroids.
+Small Asteroids fly faster than Medium Asteroids.
+Asteroids have random amounts of rotation.
+The Large Saucer always enters from the side, never from the top or bottom.
+The Large Saucer fires in random directions and does not track your ship.
+The Small Saucer always enters from the side, never from the top or bottom.
+The Small Saucer tracks your ship, always shooting a little in front of or behind you.
+Your spaceship's momentum is not conserved, the ship will eventually come to a stop when not
+thrusting.
+Objects wrap around screen edges.
+When screen has been cleared of all asteroids and saucers, a new set of large asteroids appears.
+Shield prevents damage from small asteroids or flying saucers.
+Can't fire weapon while shield is up.
+Can't use thrusters while shield is up.
+Shield lasts 3 seconds.
+Shield goes out after first hit from asteroid or saucer weapon.
+
+Sounds
+------
+Spaceship Pew Pew weapon
+Spaceship exploding
+Spaceship thruster
+Saucer exploding
+Saucer firing bomb
+
+Levels
+------
+The number of Large Asteroids increases by one with each round, up to a maximum of 12.
+Asteroids drift in random directions.
+Round 1 begins with 4 Large Asteroids.
+
+Leaderboard
+-----------
+In-game scoreboard
+Your high scores
+High scores today
+All-time high scores
+Enter name
+
+Out of Scope
+------------
+Hyperdrive
+Fire bomb weapon
+Mobile device (non-keyboard) support
+Energy
+Power Up weapon
