@@ -195,6 +195,7 @@ a:hover, a:active {
   border-radius: 21px;
   -webkit-box-shadow: 0px 0px 3px 3px rgba(147, 150, 135, 0.3);
   box-shadow: 0px 0px 3px 3px rgba(147, 150, 135, 0.3);
+  outline: 0;
 }
 
 footer p {

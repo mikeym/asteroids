@@ -1,4 +1,5 @@
 // Asteroids canvas view module
+// Early code, no longer used
 
 var asteroids = asteroids || {};
 

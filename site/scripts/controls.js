@@ -1,4 +1,5 @@
 // Asteroids game controls
+// No longer used, see ngine.input.js instead...
 
 var asteroids = asteroids || {};
 

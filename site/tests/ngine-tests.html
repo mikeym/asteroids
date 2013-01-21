@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ngine Tests</title>
+  <!-- Mikey Micheletti, for Gameplay course -->
+  <link rel="stylesheet" href="qunit-1.10.0.css">
+</head>
+<body>
+  <h1>Ngine Tests</h1>
+  <div id="qunit"></div>
+
+  <script src="qunit-1.10.0.js"></script>
+  <script src="../scripts/underscore-min.js"></script>
+  <script src="../scripts/plugins.js"></script>
+  <script src="../scripts/ngine.js"></script>
+  <script src="../scripts/ngine.gameloop.js"></script>
+  <script>
+
+    // Creating a new Ngine object and evaluating what we get
+    test('Create new Ngine tests', function() {
+      var toads = {toads: 'lumpy'};
+      var N = new Ngine(toads);
+
+      ok(N.options.audioPath, 'Audio path: ' + N.options.audioPath);
+      deepEqual(N.options.audioSupported, ['mp3','ogg'],
+        'Audio types supported: ' + N.options.audioSupported);
+      ok(N.options.dataPath, 'Data path: ' + N.options.dataPath);
+      equal(N.options.debug, true, 'Debugging enabled'); // for now, anyway
+      ok(N.options.fontsPath, 'Fonts path: ' + N.options.fontsPath);
+      ok(N.options.imagePath, 'Images path: ' + N.options.imagePath);
+      equal(N.options.sound, true, 'Sound enabled');
+      ok(N.options.toads, 'Ngine.options.toads exists');
+      deepEqual(N.options.toads, toads.toads, 'Ngine.options.toads has expected value');
+      deepEqual(N.getInstance(), N, 'Ngine.getInstance() returns this Ngin.');
+      equal(N.normalizeArg('one, two, three'), 'one,two,three',
+        'Ngine.normalizeArgs performed correct transformation');
+
+      var beets = {beets: 'urk'};
+      var N1 = new Ngine(beets);
+      notDeepEqual(N.getInstance().options, N1.getInstance().options,
+        'Two different Ngines return different instances');
+      ok(N1.options.beets, 'Ngine.options.beets exists in N1');
+      equal(N1.options.toads, undefined, 'Ngine.options.toads does not exist in N1');
+      ok(N.options.toads, 'Ngine.options.toads still exists in N');
+    });
+
+    // Let's see if we can figure out how to test the game loop
+    asyncTest('Ngine game loop runs', function(){
+      var bumpLoopCounter = 0,
+        N = new Ngine();
+      bumpLoop = function() {
+        if (bumpLoopCounter < 10) {
+          bumpLoopCounter += 1;
+        }
+      }
+      N.setGameLoop(bumpLoop);
+      setTimeout(function() {
+        equal(bumpLoopCounter, 10, 'Game loop ran for at least 10 iterations');
+        start();
+      }, 2000); // let it go 2 secs
+    });
+
+    // TODO pauseGame and resumeGame tests
+
+    // TODO evented tests
+
+	</script>
+</body>
+</html>
