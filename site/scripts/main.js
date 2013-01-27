@@ -13,7 +13,8 @@ asteroids.dbug = true;
 asteroids.loader = (function () {
   var that = this,
       a = asteroids,
-      firstRun = true;
+      firstRun = true,
+      resourcesLoaded = 0;
 
   if (a.dbug) { console.log('asteroids.loader loaded'); }
 
@@ -33,16 +34,20 @@ asteroids.loader = (function () {
           'scripts/ngine.component.js',
           'scripts/ngine.entity.js',
           'scripts/ngine.canvas2d.js',
-          'scripts/ngine.input.js'
+          'scripts/ngine.input.js',
+          'scripts/ngine.assets.js'
+
         ],
         complete: function () {
           if (a.dbug) { console.log('asteroids.loader Modernizr load complete'); }
-
-          // testing
-          //a.controls.hookKeyboardEvents();
-
-          // Create Ngine instance and hook up test loop into canvas
+          // Create Ngine instance
           a.Ngine = new Ngine();
+
+          // Load game assets
+          if (a.dbug) { console.log('loading game assets...'); }
+          a.Ngine.load(['asteroids-game-sprites.png', 'asteroids.sprites.json']);
+
+          // Hook up the input module, and setup a test canvas
           a.Ngine.includeModule('Input');
           a.Ngine.setupCanvas('gamecanvas', {desiredWidth : 640, desiredHeight : 480});
           a.Ngine.input.keyboardControls();

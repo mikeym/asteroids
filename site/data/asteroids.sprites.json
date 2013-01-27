@@ -1,0 +1,121 @@
+{
+  "asteroid-large-1": {
+    "sx": 0,
+    "sy": 0,
+    "cols": 3,
+    "tilew": 64,
+    "tileh": 64,
+    "frames": 3
+  },
+  "asteroid-large-2": {
+    "sx": 192,
+    "sy": 0,
+    "cols": 3,
+    "tilew": 64,
+    "tileh": 64,
+    "frames": 3
+  },
+  "asteroid-large-3": {
+    "sx": 384,
+    "sy": 0,
+    "cols": 3,
+    "tilew": 64,
+    "tileh": 64,
+    "frames": 3
+  },
+
+  "asteroid-medium-1": {
+    "sx": 0,
+    "sy": 70,
+    "cols": 3,
+    "tilew": 40,
+    "tileh": 40,
+    "frames": 3
+  },
+  "asteroid-medium-2": {
+    "sx": 120,
+    "sy": 70,
+    "cols": 3,
+    "tilew": 40,
+    "tileh": 40,
+    "frames": 3
+  },
+  "asteroid-medium-3": {
+    "sx": 240,
+    "sy": 70,
+    "cols": 3,
+    "tilew": 40,
+    "tileh": 40,
+    "frames": 3
+  },
+
+  "asteroid-small-1": {
+    "sx": 0,
+    "sy": 120,
+    "cols": 3,
+    "tilew": 24,
+    "tileh": 24,
+    "frames": 3
+  },
+  "asteroid-small-2": {
+    "sx": 72,
+    "sy": 120,
+    "cols": 3,
+    "tilew": 24,
+    "tileh": 24,
+    "frames": 3
+  },
+  "asteroid-small-3": {
+    "sx": 144,
+    "sy": 120,
+    "cols": 3,
+    "tilew": 24,
+    "tileh": 24,
+    "frames": 3
+  },
+
+  "bomb": {
+    "sx": 0,
+    "sy": 150,
+    "cols": 1,
+    "tilew": 20,
+    "tileh": 20,
+    "frames": 1
+  },
+
+  "pew-pew": {
+    "sx": 24,
+    "sy": 150,
+    "cols": 1,
+    "tilew": 6,
+    "tileh": 18,
+    "frames": 1
+  },
+
+  "saucer-large": {
+    "sx": 0,
+    "sy": 170,
+    "cols": 4,
+    "tilew": 64,
+    "tileh": 36,
+    "frames": 4
+  },
+
+  "saucer-small": {
+    "sx": 256,
+    "sy": 170,
+    "cols": 4,
+    "tilew": 64,
+    "tileh": 36,
+    "frames": 4
+  },
+
+  "ship": {
+    "sx": 0,
+    "sy": 210,
+    "cols": 12,
+    "tilew": 64,
+    "tileh": 64,
+    "frames": 12
+  }
+}
