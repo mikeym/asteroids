@@ -10,6 +10,7 @@ var Ngine = Ngine || {};
 
 // Extend Ngine to support contextual game events
 Ngine.Evented = Class.extend({
+  name: 'Evented',
 
   // Binds a listener to a specific event and triggers a callback when received.
   // Event is a game event

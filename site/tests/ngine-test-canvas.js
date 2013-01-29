@@ -1,4 +1,4 @@
-// Asteroids script root and loader
+// Asteroids basic canvas test script
 // Version 0.1
 // UW Gameplay, Winter Quarter 2013
 // Mikey Micheletti
@@ -12,9 +12,9 @@ asteroids.dbug = true;
 
 asteroids.loader = (function () {
   var that = this,
-      a = asteroids,
-      firstRun = true,
-      resourcesLoaded = 0;
+    a = asteroids,
+    firstRun = true,
+    resourcesLoaded = 0;
 
   if (a.dbug) { console.log('asteroids.loader loaded'); }
 
@@ -24,19 +24,19 @@ asteroids.loader = (function () {
     Modernizr.load([
       {
         load: [
-          'scripts/underscore-min.js',
-          'scripts/plugins.js',
+          '../scripts/underscore-min.js',
+          '../scripts/plugins.js',
 
           // the Ngine script load order is significant...
-          'scripts/ngine.js',
-          'scripts/ngine.gameloop.js',
-          'scripts/ngine.evented.js',
-          'scripts/ngine.component.js',
-          'scripts/ngine.entity.js',
-          'scripts/ngine.canvas2d.js',
-          'scripts/ngine.input.js',
-          'scripts/ngine.assets.js',
-          'scripts/ngine.sprites.js'
+          '../scripts/ngine.js',
+          '../scripts/ngine.gameloop.js',
+          '../scripts/ngine.evented.js',
+          '../scripts/ngine.component.js',
+          '../scripts/ngine.entity.js',
+          '../scripts/ngine.canvas2d.js',
+          '../scripts/ngine.input.js',
+          '../scripts/ngine.assets.js',
+          '../scripts/ngine.sprites.js'
 
         ],
         complete: function () {
@@ -65,19 +65,19 @@ asteroids.loader = (function () {
 
 // testing 1 2 3
 asteroids.testCanvas = function() {
-    var ctx = asteroids.Ngine.ctx;
-    asteroids.Ngine.clearCanvas();
+  var ctx = asteroids.Ngine.ctx;
+  asteroids.Ngine.clearCanvas();
 
-    ctx.beginPath();
-    ctx.strokeStyle = '#00dddd';
-    ctx.lineWidth = 2;
-    ctx.moveTo(75, 75);
-    ctx.lineTo(100, 100);
-    ctx.stroke();
+  ctx.beginPath();
+  ctx.strokeStyle = '#00dddd';
+  ctx.lineWidth = 2;
+  ctx.moveTo(75, 75);
+  ctx.lineTo(100, 100);
+  ctx.stroke();
 
-    ctx.font = '20px BPdotsSquaresLight';
-    ctx.fillStyle = '#00dddd';
-    ctx.fillText('Hi There', 50, 50);
+  ctx.font = '20px BPdotsSquaresLight';
+  ctx.fillStyle = '#00dddd';
+  ctx.fillText('Hi There', 50, 50);
 };
 
 // testing 1 2 3

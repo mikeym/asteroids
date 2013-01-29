@@ -36,6 +36,7 @@ Ngine.DefaultKeyActions = {
 // Keyboard-focused game input system.
 // Future versions may support other input methods.
 Ngine.InputSystem = Ngine.Evented.extend({
+  name : 'InputSystem',
   keys : { },              // filled via bindKey
   keypad : { },            // not supported this version
   keyboardEnabled : false, // set to true after enableKeyboard call

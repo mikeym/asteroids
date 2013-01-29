@@ -13,6 +13,7 @@ var Ngine = Ngine || {};
 // will inherit from this. It can register for and receive events, and may be
 // associated with components.
 Ngine.Entity = Ngine.Evented.extend({
+  name: 'Entity',
 
   // Check to see if the Entity has a component
   // Returns true if a component with the supplied name is found, false otherwise.

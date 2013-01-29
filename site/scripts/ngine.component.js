@@ -12,11 +12,12 @@ var Ngine = Ngine || {};
 // Register the named component and associate it with the supplied method.
 Ngine.prototype.registerComponent = function(name, methods) {
   methods.name = name;
-  this.components[name] = Engine.Component.extend(methods);
+  this.components[name] = Ngine.Component.extend(methods);
 };
 
 // Ngine Component object
 Ngine.Component = Ngine.Evented.extend({
+  name: 'Component',
 
   // Component constructor that will store a reference to the entity,
   // extend the entities properties, add itself to the entity's properties

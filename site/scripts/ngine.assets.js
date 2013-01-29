@@ -8,9 +8,6 @@
 
 var Ngine = Ngine || { };
 
-// Assets stored by this Ngine
-Ngine.assets = { };
-
 // Preload queue of assets to be loaded on demand
 Ngine.preloadQueue = [ ];
 
@@ -116,8 +113,8 @@ Ngine.prototype.loadAssetOther = function(key, src, onLoadCallback, onErrorCallb
 
 // Gets an Ngine asset by name.
 Ngine.prototype.getAsset = function(name) {
-  if (this.assets === undefined && Ngine.options.debug) {
-    console.error('Error looking for asset by name: ' + name);
+  if (this.assets === undefined && this.options.debug) {
+    //console.error('Error looking for asset by name: ' + name);
     return;
   }
   return this.assets[name];
@@ -136,6 +133,11 @@ Ngine.prototype.load = function(assetList, onFinishedCallback, options) {
       totalAssetCount, // count of all assets to load
       remainingAssetCount, // count of all assets left to load
       assetLoadedCallback; // called when an asset is loaded
+
+  // Define assets on this instance
+  if (that.assets === undefined) {
+    that.assets = { };
+  }
 
   // If we have an error loading an asset, report appropriately
   // Use an onErrorCallback written into Ngine.options if one exists
@@ -175,7 +177,7 @@ Ngine.prototype.load = function(assetList, onFinishedCallback, options) {
     if (errors) { return; }
 
     // add the object to the Ngine's assets and decrement our remaining assets count
-    Ngine.assets[key] = obj;
+    that.assets[key] = obj;
     remainingAssetCount -= 1;
 
     if (that.options.debug) {
@@ -199,7 +201,7 @@ Ngine.prototype.load = function(assetList, onFinishedCallback, options) {
 
     // If we've already loaded the asset, just call the callback, otherwise load the
     // asset using the Ngine's loader function appropriate for the asset's type.
-    if (Ngine.assets[key]) {
+    if (that.assets[key]) {
       assetLoadedCallback(key, that.assets[key]);
     } else {
       that['loadAsset' + assetType](key, itemName, assetLoadedCallback, function() {

@@ -14,7 +14,9 @@ var Ngine = (function(configOpts) {
   var extend, // extension method associated with the Ngine prototype
       includeModule, // include other modules into the Ngine
       normalizeArg, // argument cleansing
-      ngineMaker; // Ngine constructor for an instance
+      getInstance, // engine accessor
+      ngineMaker, // Ngine constructor for an instance
+      currentInstance = null; // Ngine instance
 
   // Extends the Ngine with shiny new bits
   extend = function(obj) {
@@ -34,7 +36,12 @@ var Ngine = (function(configOpts) {
       }
     });
     return this;
-  }
+  };
+
+  // Instance accessor
+  getInstance = function() {
+    return currentInstance;
+  };
 
   // Transforms a supplied comma-delimited string of names into an
   // array of names stripped of whitespaces.
@@ -50,6 +57,12 @@ var Ngine = (function(configOpts) {
 
   // Ngine constructor function to create a new Ngine instance
   ngineMaker = function(configOpts) {
+
+    // One instance only of the Ngine
+    if (currentInstance) {
+      return currentInstance;
+    }
+    // New it
     if (!(this instanceof Ngine)) {
       return new Ngine(configOpts);
     }
@@ -74,6 +87,9 @@ var Ngine = (function(configOpts) {
     that.components = {};
     that.inputs = {};
 
+    // Our Ngine
+    currentInstance = that;
+
     if (that.options.debug) {
       console.log('Ngine created');
     }
@@ -87,6 +103,8 @@ var Ngine = (function(configOpts) {
     normalizeArg: normalizeArg,
     includeModule: includeModule
   };
+
+  ngineMaker.getInstance = getInstance;
 
   return ngineMaker;
 
