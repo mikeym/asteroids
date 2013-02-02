@@ -63,7 +63,7 @@ Ngine.Sprites = function() {
 
     // Draws a specific frame of the sprite sheet at the supplied x and y locations
     // and canvas render context.
-    draw: function(ctx, x, y, frame) {
+    draw: function(ctx, x, y, frame, width, height, angle, alpha) {
       var asset,
           sx,
           sy;
@@ -75,17 +75,19 @@ Ngine.Sprites = function() {
       if (ctx === undefined) { return; }
 
       asset = this.ngine.getAsset(this.assetName);
-      sx = this.frameX(frame);
+      sx = this.frameX(frame); // set clipping region
       sy = this.frameY(frame);
       ctx.drawImage(asset,
                     sx,
                     sy,
                     this.tilew,
                     this.tileh,
-                    Math.floor(x),
-                    Math.floor(y),
-                    this.tilew,
-                    this.tileh);
+                    x,
+                    y,
+                    width,
+                    height,
+                    angle,
+                    alpha);
     }
 
   }); // Spritesheet
@@ -130,6 +132,8 @@ Ngine.Sprites = function() {
         this.height = this.height || this.getSheet().tileh;
       }
     }
+
+    // TODO if needed, repeat option...
   };
 
   // Gets the image asset associated with this sprite, or null if undefined
@@ -139,7 +143,7 @@ Ngine.Sprites = function() {
 
   // Gets the spritesheet associated with this sprite, or null if undefined
   SpriteDefaultProperties.prototype.getSheet = function() {
-    return Ngine.getInstance().getSpriteSheet(this.sheetName) || null;
+    return Ngine.getInstance().getSpritesheet(this.sheetName) || null;
   };
 
   // Draws a sprite on the supplied canvas context. Triggers a draw event.
@@ -171,19 +175,19 @@ Ngine.Sprites = function() {
 
     // Extend the SpriteComponent with the default properties, and associate the draw event
     added: function(props) {
-      this.ngine = Ngine.getInstance();
-      this.properties = _(this.defaults).clone();
-      if (props) {
-        _(this.properties).extend(props);
-      }
+//      this.ngine = Ngine.getInstance();
+//      this.properties = _(this.defaults).clone();
+//      if (props) {
+//        _(this.properties).extend(props);
+//      }
       this.properties.initialize();
-      this.entity.bindEvent('draw', this, 'draw');
+      this.entity.bind('draw', this, 'draw');
     },
 
     // Draw the sprite on the supplied canvas context using current properties
     draw: function(ctx) {
       var p = this.properties,
-          pos = this.entity.transformLocalPostion(p.x, p.y), // TODO WHAT IS THIS?
+          pos = this.entity.transformLocalPosition(p.x, p.y),
           angle = this.entity.properties.angle + p.angle;
       this.properties.draw(ctx, pos.x, pos.y, angle);
     }
@@ -197,19 +201,20 @@ Ngine.Sprites = function() {
 
     // Extend the Sprite with the supplied properties when created
     init: function(props) {
-      if (props) {
-        _(this.properties).extend(props);
-      }
+      this._super(props);
       this.properties.initialize();
     },
 
     // Draw the sprite, see SpriteComponent.draw
     draw: function(ctx) {
       this.properties.draw(ctx);
-      this.triggerEvent('draw', ctx);
-    }
+      this.trigger('draw', ctx);
+    },
 
-    // TODO: step if needed
+    // Triggers a step event for any listening components
+    step: function(dt) {
+      this.trigger('step', dt);
+    }
   }); // end Sprite
 
   // Sprites continued...

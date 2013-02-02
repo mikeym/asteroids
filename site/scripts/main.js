@@ -36,7 +36,8 @@ asteroids.loader = (function () {
           'scripts/ngine.canvas2d.js',
           'scripts/ngine.input.js',
           'scripts/ngine.assets.js',
-          'scripts/ngine.sprites.js'
+          'scripts/ngine.sprites.js',
+          'scripts/ngine.scenes.js'
 
         ],
         complete: function () {

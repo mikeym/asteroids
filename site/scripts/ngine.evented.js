@@ -17,9 +17,14 @@ Ngine.Evented = Class.extend({
   // Callback is a function to be called when the event is fired
   // Target is an optional argument that provides context to the callback, especially
   // to support debind.
-  bind: function(event, callback, target) {
+  bind: function(event, target, callback) {
     // Set the callback to be a method on target
-    if (_.isString(callback)) {
+    if (!callback) {
+      callback = target;
+      target = null;
+    }
+
+    if (_.isString(callback) && target) {
       callback = target[callback];
     }
 
