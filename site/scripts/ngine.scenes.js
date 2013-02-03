@@ -190,7 +190,7 @@ Ngine.Stage = Ngine.Entity.extend({
   hitTest: function(theObject, theType) {
     var collides;
     if (theObject != this) {
-      var collides =
+      collides =
         (!theType || this.properties.type && theType) && Ngine.overlap(theObject, this);
       return collides ? this : false;
     }

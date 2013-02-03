@@ -175,11 +175,6 @@ Ngine.Sprites = function() {
 
     // Extend the SpriteComponent with the default properties, and associate the draw event
     added: function(props) {
-//      this.ngine = Ngine.getInstance();
-//      this.properties = _(this.defaults).clone();
-//      if (props) {
-//        _(this.properties).extend(props);
-//      }
       this.properties.initialize();
       this.entity.bind('draw', this, 'draw');
     },

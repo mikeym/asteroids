@@ -2,7 +2,7 @@
 // Mikey Micheletti
 // Version 0.1
 // relies on ngine.js, underscore.js, jquery.js, and this project's plugins.js
-// Keyboard input implemented this version, other inputs stubbed in.
+// Keyboard input supported this version, other inputs like mouse, joypad, touch alas no.
 // Builds on work by Pascal Rettig and Tom O'Connor, thank you!
 
 'use strict';
@@ -42,6 +42,7 @@ Ngine.InputSystem = Ngine.Evented.extend({
   keyboardEnabled : false, // set to true after enableKeyboard call
   touchEnabled : false,    // not supported this version
   joypadEnabled : false,   // not supported this version
+  mouseEnabled : false,    // likewise
 
   // Populates the Ngine.InputSystem.keys object
   // Key is expected to be an integer numeric identifier of a key (aka a 'key code'),

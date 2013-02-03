@@ -85,8 +85,9 @@ function TestSprites() {
       smSaucerFrame = 0,
       shipFrame = 0,
       n = asteroids.Ngine,
-      ctx = n.getCanvasCtx(),
+      ctx = Ngine.getInstance().getCanvasCtx(),
       logErrorOnce = true;
+  console.log('TestSprites');
 
   n.compileSheets('asteroids-game-sprites.png', 'asteroids-game-sprites.json');
   lgeAsteroid1 = n.getSpritesheet('asteroid-large-1');
@@ -110,40 +111,41 @@ function TestSprites() {
     // Each time we loop (slowly) draw each frame of each spritesheet
     n.setGameLoop( function() {
       n.clearCanvas();
-      
-      lgeAsteroid1.draw(ctx, 10, 10, Math.floor(lgeAsteroidFrame1/slowdown));
+
+      // Sprites module has changed, adding additional args...
+      lgeAsteroid1.draw(ctx, 10, 10, Math.floor(lgeAsteroidFrame1/slowdown), 64, 64, 0, 1.0);
       lgeAsteroidFrame1 = (lgeAsteroidFrame1 + 1) % (lgeAsteroid1.frames * slowdown);
-      lgeAsteroid2.draw(ctx, 100, 10, Math.floor(lgeAsteroidFrame2/slowdown));
+      lgeAsteroid2.draw(ctx, 100, 10, Math.floor(lgeAsteroidFrame2/slowdown), 64, 64, 0, 1.0);
       lgeAsteroidFrame2 = (lgeAsteroidFrame2 + 1) % (lgeAsteroid2.frames * slowdown);
-      lgeAsteroid3.draw(ctx, 200, 10, Math.floor(lgeAsteroidFrame3/slowdown));
+      lgeAsteroid3.draw(ctx, 200, 10, Math.floor(lgeAsteroidFrame3/slowdown), 64, 64, 0, 1.0);
       lgeAsteroidFrame3 = (lgeAsteroidFrame3 + 1) % (lgeAsteroid3.frames * slowdown);
 
-      medAsteroid1.draw(ctx, 300, 10, Math.floor(medAsteroidFrame1/slowdown));
+      medAsteroid1.draw(ctx, 300, 10, Math.floor(medAsteroidFrame1/slowdown), 40, 40, 0, 1.0);
       medAsteroidFrame1 = (medAsteroidFrame1 + 1) % (medAsteroid1.frames * slowdown);
-      medAsteroid2.draw(ctx, 400, 10, Math.floor(medAsteroidFrame2/slowdown));
+      medAsteroid2.draw(ctx, 400, 10, Math.floor(medAsteroidFrame2/slowdown), 40, 40, 0, 1.0);
       medAsteroidFrame2 = (medAsteroidFrame2 + 1) % (medAsteroid2.frames * slowdown);
-      medAsteroid3.draw(ctx, 500, 10, Math.floor(medAsteroidFrame3/slowdown));
+      medAsteroid3.draw(ctx, 500, 10, Math.floor(medAsteroidFrame3/slowdown), 40, 40, 0, 1.0);
       medAsteroidFrame3 = (medAsteroidFrame3 + 1) % (medAsteroid3.frames * slowdown);
 
-      smAsteroid1.draw(ctx, 300, 60, Math.floor(smAsteroidFrame1/slowdown));
+      smAsteroid1.draw(ctx, 300, 60, Math.floor(smAsteroidFrame1/slowdown), 24, 24, 0, 1.0);
       smAsteroidFrame1 = (smAsteroidFrame1 + 1) % (smAsteroid1.frames * slowdown);
-      smAsteroid2.draw(ctx, 400, 60, Math.floor(smAsteroidFrame2/slowdown));
+      smAsteroid2.draw(ctx, 400, 60, Math.floor(smAsteroidFrame2/slowdown), 24, 24, 0, 1.0);
       smAsteroidFrame2 = (smAsteroidFrame2 + 1) % (smAsteroid2.frames * slowdown);
-      smAsteroid3.draw(ctx, 500, 60, Math.floor(smAsteroidFrame3/slowdown));
+      smAsteroid3.draw(ctx, 500, 60, Math.floor(smAsteroidFrame3/slowdown), 24, 24, 0, 1.0);
       smAsteroidFrame3 = (smAsteroidFrame3 + 1) % (smAsteroid3.frames * slowdown);
 
       // only one frame each for these but hey
-      bomb.draw(ctx, 600, 10, Math.floor(bombFrame/slowdown));
+      bomb.draw(ctx, 600, 10, Math.floor(bombFrame/slowdown), 20, 20, 0, 1.0);
       bombFrame = (bombFrame + 1) % (bomb.frames * slowdown);
-      pewpew.draw(ctx, 600, 60, Math.floor(pewpewFrame/slowdown));
+      pewpew.draw(ctx, 600, 60, Math.floor(pewpewFrame/slowdown), 6, 18, 0, 1.0);
       pewpewFrame = (pewpewFrame + 1) % (pewpew.frames * slowdown);
 
-      lgeSaucer.draw(ctx, 10, 120, Math.floor(lgeSaucerFrame/slowdown));
+      lgeSaucer.draw(ctx, 10, 120, Math.floor(lgeSaucerFrame/slowdown), 64, 36, 0, 1.0);
       lgeSaucerFrame = (lgeSaucerFrame + 1) % (lgeSaucer.frames * slowdown);
-      smSaucer.draw(ctx, 100, 120, Math.floor(smSaucerFrame/slowdown));
+      smSaucer.draw(ctx, 100, 120, Math.floor(smSaucerFrame/slowdown), 64, 36, 0, 1.0);
       smSaucerFrame = (smSaucerFrame + 1) % (smSaucer.frames * slowdown);
 
-      ship.draw(ctx, 200, 120, Math.floor(shipFrame/slowdown));
+      ship.draw(ctx, 200, 120, Math.floor(shipFrame/slowdown), 64, 64, 0, 1.0);
       shipFrame = (shipFrame + 1) % (ship.frames * slowdown);
     })
 
