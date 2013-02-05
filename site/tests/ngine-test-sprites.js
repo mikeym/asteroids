@@ -112,40 +112,43 @@ function TestSprites() {
     n.setGameLoop( function() {
       n.clearCanvas();
 
-      // Sprites module has changed, adding additional args...
-      lgeAsteroid1.draw(ctx, 10, 10, Math.floor(lgeAsteroidFrame1/slowdown), 64, 64, 0, 1.0);
+      // Position sprites on center, test rotation and alpha support
+      lgeAsteroid1.draw(ctx, 50, 50, Math.floor(lgeAsteroidFrame1/slowdown), 64, 64, 0, 1.0);
       lgeAsteroidFrame1 = (lgeAsteroidFrame1 + 1) % (lgeAsteroid1.frames * slowdown);
-      lgeAsteroid2.draw(ctx, 100, 10, Math.floor(lgeAsteroidFrame2/slowdown), 64, 64, 0, 1.0);
+      lgeAsteroid2.draw(ctx, 150, 50, Math.floor(lgeAsteroidFrame2/slowdown), 64, 64, 0, 1.0);
       lgeAsteroidFrame2 = (lgeAsteroidFrame2 + 1) % (lgeAsteroid2.frames * slowdown);
-      lgeAsteroid3.draw(ctx, 200, 10, Math.floor(lgeAsteroidFrame3/slowdown), 64, 64, 0, 1.0);
+      lgeAsteroid3.draw(ctx, 250, 50, Math.floor(lgeAsteroidFrame3/slowdown), 64, 64, 0, 1.0);
       lgeAsteroidFrame3 = (lgeAsteroidFrame3 + 1) % (lgeAsteroid3.frames * slowdown);
 
-      medAsteroid1.draw(ctx, 300, 10, Math.floor(medAsteroidFrame1/slowdown), 40, 40, 0, 1.0);
+      medAsteroid1.draw(ctx, 350, 50, Math.floor(medAsteroidFrame1/slowdown), 40, 40, 0, 1.0);
       medAsteroidFrame1 = (medAsteroidFrame1 + 1) % (medAsteroid1.frames * slowdown);
-      medAsteroid2.draw(ctx, 400, 10, Math.floor(medAsteroidFrame2/slowdown), 40, 40, 0, 1.0);
+      medAsteroid2.draw(ctx, 450, 50, Math.floor(medAsteroidFrame2/slowdown), 40, 40, 0, 1.0);
       medAsteroidFrame2 = (medAsteroidFrame2 + 1) % (medAsteroid2.frames * slowdown);
-      medAsteroid3.draw(ctx, 500, 10, Math.floor(medAsteroidFrame3/slowdown), 40, 40, 0, 1.0);
+      medAsteroid3.draw(ctx, 550, 50, Math.floor(medAsteroidFrame3/slowdown), 40, 40, 0, 1.0);
       medAsteroidFrame3 = (medAsteroidFrame3 + 1) % (medAsteroid3.frames * slowdown);
 
-      smAsteroid1.draw(ctx, 300, 60, Math.floor(smAsteroidFrame1/slowdown), 24, 24, 0, 1.0);
+      smAsteroid1.draw(ctx, 350, 110, Math.floor(smAsteroidFrame1/slowdown), 24, 24, 0, 1.0);
       smAsteroidFrame1 = (smAsteroidFrame1 + 1) % (smAsteroid1.frames * slowdown);
-      smAsteroid2.draw(ctx, 400, 60, Math.floor(smAsteroidFrame2/slowdown), 24, 24, 0, 1.0);
+      smAsteroid2.draw(ctx, 450, 110, Math.floor(smAsteroidFrame2/slowdown), 24, 24, 0, 1.0);
       smAsteroidFrame2 = (smAsteroidFrame2 + 1) % (smAsteroid2.frames * slowdown);
-      smAsteroid3.draw(ctx, 500, 60, Math.floor(smAsteroidFrame3/slowdown), 24, 24, 0, 1.0);
+      smAsteroid3.draw(ctx, 550, 110, Math.floor(smAsteroidFrame3/slowdown), 24, 24, 0, 1.0);
       smAsteroidFrame3 = (smAsteroidFrame3 + 1) % (smAsteroid3.frames * slowdown);
 
       // only one frame each for these but hey
-      bomb.draw(ctx, 600, 10, Math.floor(bombFrame/slowdown), 20, 20, 0, 1.0);
+      bomb.draw(ctx, 650, 50, Math.floor(bombFrame/slowdown), 20, 20, 0, 1.0);
       bombFrame = (bombFrame + 1) % (bomb.frames * slowdown);
-      pewpew.draw(ctx, 600, 60, Math.floor(pewpewFrame/slowdown), 6, 18, 0, 1.0);
+      pewpew.draw(ctx, 650, 110, Math.floor(pewpewFrame/slowdown), 6, 18, 0, 1.0);
       pewpewFrame = (pewpewFrame + 1) % (pewpew.frames * slowdown);
 
-      lgeSaucer.draw(ctx, 10, 120, Math.floor(lgeSaucerFrame/slowdown), 64, 36, 0, 1.0);
+      // large saucer drawn at 50% opacity
+      lgeSaucer.draw(ctx, 50, 170, Math.floor(lgeSaucerFrame/slowdown), 64, 36, 0, 0.5);
       lgeSaucerFrame = (lgeSaucerFrame + 1) % (lgeSaucer.frames * slowdown);
-      smSaucer.draw(ctx, 100, 120, Math.floor(smSaucerFrame/slowdown), 64, 36, 0, 1.0);
+
+      smSaucer.draw(ctx, 150, 170, Math.floor(smSaucerFrame/slowdown), 64, 36, 0, 1.0);
       smSaucerFrame = (smSaucerFrame + 1) % (smSaucer.frames * slowdown);
 
-      ship.draw(ctx, 200, 120, Math.floor(shipFrame/slowdown), 64, 64, 0, 1.0);
+      // Ship drawn at an angle
+      ship.draw(ctx, 250, 170, Math.floor(shipFrame/slowdown), 64, 64, 0.3, 1.0);
       shipFrame = (shipFrame + 1) % (ship.frames * slowdown);
     })
 

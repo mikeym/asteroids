@@ -32,7 +32,11 @@ asteroids.loader = (function () {
         '../scripts/ngine.assets.js',
         '../scripts/ngine.sprites.js',
         '../scripts/ngine.scenes.js',
-        '../scripts/ngine.animation.js'
+        '../scripts/ngine.animation.js',
+
+        // physics system
+        '../scripts/Box2dWeb-2.1.a.3.min.js'
+        // TODO physics module
 
       ],
       complete: function () {
@@ -111,9 +115,16 @@ function TestAnimations () {
         rotatingLeft: false,
         rotatingRight: false,
         shieldsOn: false,
-        x: 288,
-        y: 208,
-        angle: 0
+        x: 320,
+        y: 240,
+        angle: 0, // really a radian
+        radiansPerRotation: 0.33, // amount to rotate per turn, either direction
+
+        // Our sprites point up. Radians anticipate a rightward orientation.
+        // The offset rotates our angle-sensitive thrust support 90 degrees counterclockwise.
+        spriteRadianOffset: Math.PI / 2,
+
+        pixelsToMove: 3 // amount to move with thrusters on, may want to have velocity later
       });
 
       // Add animation capabilities to the ship
@@ -126,23 +137,35 @@ function TestAnimations () {
       asteroids.Ngine.input.bind('left', this, 'rotateLeftOn'); // TODO
       asteroids.Ngine.input.bind('right', this, 'rotateRightOn'); // TODO
       asteroids.Ngine.input.bind('shield', this, 'shieldOn');
-      asteroids.Ngine.input.bind('shieldUp', this, 'shieldOff')
+      asteroids.Ngine.input.bind('shieldUp', this, 'shieldOff');
       console.log('Ship Created');
     },
 
     // Decision-making about which animation to present based on current properties values.
     // Drawing to the canvas is then handed off to the Sprite.
     step: function(dt) {
-      var p = this.properties;
+      var p = this.properties,
+          cosOfAngle, // computed when thrusting
+          sinOfAngle;
+
       if (p.thrusting) {
-        // TODO physics, direction...
-        p.y -= 3;
+        // Our sprites are drawn pointing straight up, but radians are oriented horizontally,
+        // Results will be positive or negative
+        cosOfAngle = Math.cos(p.angle - p.spriteRadianOffset); // direction x
+        sinOfAngle = Math.sin(p.angle - p.spriteRadianOffset); // direction y
+
+        // Translating forward vector around the radian.
+        // Note that 360 degrees = 2 pi radians, 180 = pi, 90 = pi/2
+        p.x += p.pixelsToMove * cosOfAngle;
+        p.y += p.pixelsToMove * sinOfAngle;
+
         if (p.shieldsOn) {
-          // Note need to add a time sustain to shields, can't do this yet. Physics?
+          // TODO add a time sustain to shields. Physics?
           this.play('shieldsAndThrusting', 1);
         } else {
           this.play('thrusting', 1);
         }
+
       } else if (p.shieldsOn) {
         this.play('shields', 1);
       } else {
@@ -160,11 +183,11 @@ function TestAnimations () {
     },
 
     rotateLeftOn: function() {
-      // TODO physics?
+      this.properties.angle -= this.properties.radiansPerRotation;
     },
 
     rotateRightOn: function() {
-      // TODO physics?
+      this.properties.angle += this.properties.radiansPerRotation;
     },
 
     shieldOn: function() {

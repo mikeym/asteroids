@@ -62,7 +62,7 @@ Ngine.Sprites = function() {
     },
 
     // Draws a specific frame of the sprite sheet at the supplied x and y locations
-    // and canvas render context.
+    // and canvas render context. Note that sprites are positioned on center.
     draw: function(ctx, x, y, frame, width, height, angle, alpha) {
       var asset,
           sx,
@@ -77,17 +77,34 @@ Ngine.Sprites = function() {
       asset = this.ngine.getAsset(this.assetName);
       sx = this.frameX(frame); // set clipping region
       sy = this.frameY(frame);
-      ctx.drawImage(asset,
-                    sx,
+      angle = angle || 0;
+      alpha = alpha || 1.0;
+
+      // save context before we change something
+      ctx.save();
+
+      // transparency
+      ctx.globalAlpha = alpha;
+
+      // move to where we're drawing the image
+      ctx.translate(x, y);
+
+      // rotate around the point
+      ctx.rotate(angle);
+
+      // draw the image now, moving it up and to the left by .5 width and height of image
+      ctx.drawImage(asset,            // spritesheet image asset
+                    sx,               // clipping x
                     sy,
-                    this.tilew,
+                    this.tilew,       // this sprite's tile position
                     this.tileh,
-                    x,
-                    y,
-                    width,
-                    height,
-                    angle,
-                    alpha);
+                    -(width / 2),     // move sprite up and left by .5 width & height
+                    -(height / 2),
+                    width,            // desired width and height
+                    height);
+
+      // back to normal
+      ctx.restore();
     }
 
   }); // Spritesheet
