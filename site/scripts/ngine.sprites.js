@@ -66,7 +66,8 @@ Ngine.Sprites = function() {
     draw: function(ctx, x, y, frame, width, height, angle, alpha) {
       var asset,
           sx,
-          sy;
+          sy,
+          wrappedPosition;
 
       if (!ctx) {
         ctx = this.ngine.getCanvasCtx();
@@ -105,7 +106,7 @@ Ngine.Sprites = function() {
 
       // back to normal
       ctx.restore();
-    }
+    },
 
   }); // Spritesheet
 

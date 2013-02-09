@@ -32,9 +32,9 @@ Ngine.Physics = function() {
 
   // Default properties for a Box2D world
   Ngine.PhysicsWorldDefaults = {
-    gravityX: 0,
-    gravityY: 9.8, // TODO explore changing this for outer spaciousness
-    scale: 1,
+    gravityX: 0.0,
+    gravityY: 0.0, // Nearly weightless
+    scale: 30,
     velocityIterations: 8,
     positionIterations: 3,
     doSleep: true
@@ -83,7 +83,7 @@ Ngine.Physics = function() {
       this._gravity = new B2d.Vec(this.b2dOptions.gravityX, this.b2dOptions.gravityY);
 
       // Create the Box2D world object
-      this._world = new B2d.World(this._gravity, this.b2dOptions.doSleep);
+      this.world = new B2d.World(this._gravity, this.b2dOptions.doSleep);
 
       // Functions we will register as callbacks
       // Underscore will allow us to bind methods onto 'this' by name, so they can be
@@ -97,7 +97,7 @@ Ngine.Physics = function() {
       this._listener.EndContact = this.endContact;      // Actors stop touching
       this._listener.PostSolve = this.postSolve;        // Actor causes impulse on another actor
 
-      this._world.SetContactListener(this._listener);
+      this.world.SetContactListener(this._listener);
 
       // Contact data structure, reusable to keep memory footprint lower
       // Events are triggered immediately, so game only needs access to current collision
@@ -160,14 +160,14 @@ Ngine.Physics = function() {
     // createBody
     // Creates a new RigidBody based on our configuration properties
     createBody: function(def) {
-      return this._world.CreateBody(def);
+      return this.world.CreateBody(def);
     }, //
 
 
     // destroyBody
     // Deletes the body from the physics world simulation. Expects a B2d.BodyDef arg.
     destroyBody: function(body) {
-      return this._world.DestroyBody(body);
+      return this.world.DestroyBody(body);
     },
 
 
@@ -179,7 +179,7 @@ Ngine.Physics = function() {
       if (dt > 1/20) {
         dt = 1/20;
       }
-      this._world.Step(dt, this.b2dOptions.velocityIterations, this.b2dOptions.positionIterations);
+      this.world.Step(dt, this.b2dOptions.velocityIterations, this.b2dOptions.positionIterations);
     },
 
 
@@ -206,7 +206,7 @@ Ngine.Physics = function() {
         return true;
       }
 
-      this._world.QueryAABB(_getDynamicBodyCB, aabb);
+      this.world.QueryAABB(_getDynamicBodyCB, aabb);
       if (selectedBody) {
         return selectedBody.GetUserData();
       }
@@ -219,12 +219,12 @@ Ngine.Physics = function() {
     createMouseJoint: function(body, coordX, coordY) {
       var newJoint,
           newJointDef = new B2d.MouseJointDef();
-      newJointDef.bodyA = this._world.GetGroundBody();
+      newJointDef.bodyA = this.world.GetGroundBody();
       newJointDef.bodyB = body;
       newJointDef.target.Set(coordX / this.scale, coordY / this.scale);
       newJointDef.collideConnected = true;
       newJointDef.maxForce = 300.0 * body.GetMass();
-      newJoint = this._world.CreateJoint(newJointDef);
+      newJoint = this.world.CreateJoint(newJointDef);
       body.SetAwake(true);
       return newJoint;
     },
@@ -233,7 +233,7 @@ Ngine.Physics = function() {
     // destroyJoint
     // Removes a constraint from the system. Accepts any type.
     destroyJoint: function(joint) {
-      this._world.DestroyJoint(joint);
+      this.world.DestroyJoint(joint);
     },
 
 
@@ -241,7 +241,7 @@ Ngine.Physics = function() {
     // Sets debug-style rendering for bodies.
     debug_draw: function() {
       if (this._debugDraw) {
-        this._world.DrawDebugData();
+        this.world.DrawDebugData();
       }
     },
 
@@ -256,6 +256,9 @@ Ngine.Physics = function() {
         this._debugDraw.SetSprite(Ngine.getInstance().getCanvasCtx());
         this._debugDraw.SetDrawScale(this.scale);
         this._debugDraw.SetFillAlpha(0.5);
+        this._debugDraw.SetLineThickness(1.0);
+        this._debugDraw.SetFlags(B2d.DebugDraw.e_shapeBit || B2d.DebugDraw.e_jointBit);
+        this.world.SetDebugDraw(this._debugDraw);
       }
     }
 
@@ -489,16 +492,61 @@ Ngine.Physics = function() {
 
       // step
       // Called after each physics engine step. Updates the sprites based on the
-      // physics body's transform.
+      // physics body's transform. Also handles asteroids game-specific wrapping.
       step: function() {
         var properties = this.entity.properties,
             stage = this.entity.parentStage,
             pos = this._body.GetPosition(),
-            angle = this._body.GetAngle();
+            angle = this._body.GetAngle(),
+            canvasWidth = this.entity.ngine.canvasWidth,    // width of canvas for wrapping
+            canvasHeight = this.entity.ngine.canvasHeight,  // height of canvas for wrapping
+            entityWidth = properties.width,                 // width of sprite image
+            entityHeight = properties.height,               // height of sprite image
+            slipPixels = 3,                                 // wiggle room for wrapping test
+            stageScale = stage.world.scale,
+            desiredPosX = pos.x,                            // x to position to if wrapping needed
+            desiredPosY = pos.y,                            // y to position to if wrapping needed
+            resetPosition = false;                          // if true, will wrap with setPosition
 
-        properties.x = pos.x * stage.world.scale;
-        properties.y = pos.y * stage.world.scale;
+        // Asteroids-specific game viewport wrapping, could probably put inside a switch
+
+        // Left / right edge wrapping
+        if (properties.x + entityWidth + slipPixels < 0) {
+          properties.x = canvasWidth;
+          desiredPosX = properties.x / stageScale;
+          resetPosition = true;
+        } else if ((properties.x + entityWidth) > (canvasWidth + entityWidth + slipPixels)) {
+          properties.x = 0;
+          desiredPosX = properties.x / stageScale;
+          resetPosition = true;
+        }
+
+        // Top/bottom edge wrapping
+        if (properties.y + entityHeight + slipPixels < 0) {
+          properties.y = canvasHeight;
+          desiredPosY = properties.y / stageScale;
+          resetPosition = true;
+        } else if ((properties.y + entityHeight) > (canvasHeight + entityHeight + slipPixels)) {
+          properties.y = 0;
+          desiredPosY = properties.y / stageScale;
+          resetPosition = true;
+        }
+
+        // If we're rewrapping, reset the position of the sprite
+        if (resetPosition) {
+          this._body.SetAwake(true);
+          this._body.SetPosition(new B2d.Vec(desiredPosX, desiredPosY));
+        }
+
+        // Sync up the B2d and sprite coordinates and angle
+        properties.x = desiredPosX * stage.world.scale;
+        properties.y = desiredPosY * stage.world.scale;
         properties.angle = angle;
+
+      },
+
+      getBody: function() {
+        return this._body;
       }
 
     }; // constructor return
