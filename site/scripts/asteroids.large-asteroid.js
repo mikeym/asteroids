@@ -43,12 +43,14 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
       y: 0,
       angle: 0,
       shape: 'circle',
-      shape_radius: 29, // round asteroids for now
-      bodyType: 'dynamic', // can bump into stuff
-      linearDamping: 1.0, // a little bit of drag seems to look right
-      howFastItScoots: 6.0, // slow
+      shape_radius: 40,         // larger than the sprite graphic so we get edge collisions
+      bodyType: 'dynamic',      // can bump into stuff
+      linearDamping: 10.0,      // a little bit of drag seems to look right
+      density: 100.0,           // big heavy rocks
+      mass: 200,                // big heavy rocks
+      howFastItScoots: 2600.0,  // needs a lotta scoot if it's heavy
       doSleep: false,
-      isExploding: false,
+      exploding: false,
       isInitializing: true,
       leftToRight: Math.random() * 2 > 1
     });
@@ -68,6 +70,10 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
     // Add animation and physics capabilities to the asteroid
     this.addComponent('animation');
     this.addComponent('physics');
+
+    // Listen for physics system contact
+    this.bind('contact', this, 'contact');
+    this.bind('endContact', this, 'endContact');
 
     if (asteroids.dbug) { console.log('Asteroid[' + this.properties.spriteIndex + '] created'); }
   },
@@ -108,14 +114,29 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
     }
 
     // TODO explode
-    if (p.isExploding) {
+    if (p.exploding) {
       this.play('exploding');
     } else {
       this.play('normal');
     }
 
     this._super(dt);
-  }
+  },
 
+  // When an asteroid hits the ship, set the ship's exploding property.
+  // The ship will explode during the next step.
+  contact: function(contact) {
+    if (contact.name && contact.name ==='Ship') {
+      console.log('Asteroid hit ship');
+      contact.properties.exploding = true;
+    } else {
+      // TODO maybe apply a bit of force or something so the asteroids don't all stick together
+    }
+  },
+
+  // If needed
+  endContact: function(contact) {
+    //this.properties.exploding = false;
+  }
 
 });

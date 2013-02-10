@@ -27,6 +27,11 @@ asteroids.shipAnimationSequences = {
   shieldsAndThrusting: {
     frames: [11],
     rate: 1/5
+  },
+  exploding: {
+    frames:[1,2,3],
+    rate: 1/5,
+    loop: false
   }
 };
 
@@ -46,13 +51,15 @@ asteroids.Ship = Ngine.Sprite.extend({
       rotatingLeft: false,
       rotatingRight: false,
       shieldsOn: false,
+      exploding: false,
+      fixedRotation: true, // don't let collisions with shields on start us turning
       x: 320,
       y: 240,
       angle: 0, // really a radian
       radiansPerRotation: 0.333, // amount to rotate per turn, either direction
 
       shape: 'polygon',
-      shape_points: [[0,-24], [-13,18], [13,18]], // ship without shields is a triangle
+      shape_points: [[0,-30], [-18,22], [18,22]], // ship without shields is a triangle
       bodyType: 'dynamic', // can bump into stuff
       linearDamping: 2.0, // a little bit of drag seems to look right
       doSleep: false,
@@ -76,6 +83,11 @@ asteroids.Ship = Ngine.Sprite.extend({
     asteroids.Ngine.input.bind('right', this, 'rotateRightOn'); // TODO
     asteroids.Ngine.input.bind('shield', this, 'shieldOn');
     asteroids.Ngine.input.bind('shieldUp', this, 'shieldOff');
+
+    // Listen for physics system contact with the ship so it can blow up
+    this.bind('contact', this, 'contact');
+    this.bind('endContact', this, 'endContact');
+
     if (asteroids.dbug) { console.log('Ship Created'); }
   },
 
@@ -84,7 +96,17 @@ asteroids.Ship = Ngine.Sprite.extend({
   step: function(dt) {
     var p = this.properties;
 
-    if (p.thrusting) {
+    // We explode on contact, triggering the explode animation, removing the ship
+    // from the stage, and destroying it. If shields are up we're safe.
+    if (p.exploding && !p.shieldsOn) {
+      this.play('exploding', 1);
+      this.bind('animEnd', this, function() {
+        this.parentStage.remove(this);
+        //this.destroy();
+        // TODO gameplay, score, new ship, etc
+      });
+
+    } else if (p.thrusting) {
 
       // Thrusting movement handled by the thrusterOn and thrusterOff methods below
 
@@ -194,6 +216,16 @@ asteroids.Ship = Ngine.Sprite.extend({
 
     body.DestroyFixture(oldFixtures);
     body.CreateFixture(fixtureDef);
+  },
+
+  // Bound to the physics system's beginContact event
+  // Sets the exploding property to true. It gets handled in the step.
+  contact: function(contact) {
+    this.properties.exploding = true;
+  },
+
+  endContact: function(contact) {
+    this.properties.exploding = false;
   }
 
 }); // Ship

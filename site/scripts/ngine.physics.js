@@ -112,8 +112,8 @@ Ngine.Physics = function() {
     // Populates reusable collision data object, which is passed to physics actors' event
     // handlers when a collision occurs
     setCollisionData: function(contact, impulse) {
-      var entityA = contact.getFixtureA().GetBody().GetUserData(),
-          entityB = contact.getFixtureB().GetBody().GetUserData();
+      var entityA = contact.GetFixtureA().GetBody().GetUserData(),
+          entityB = contact.GetFixtureB().GetBody().GetUserData();
 
       this.contactData['entityA'] = entityA;
       this.contactData['entityB'] = entityB;

@@ -116,8 +116,12 @@ Ngine.Entity = Ngine.Evented.extend({
     if (this.activeComponents) {
       for (i = 0, len = this.activeComponents.length; i < len; i++) {
         component = this.activeComponents[i];
-        this.trigger('deleteComponent', component.name);
-        component.destroy();
+        if (component && component.name) {
+          this.trigger('deleteComponent', component.name);
+        }
+        if (component && component.destroy) {
+          component.destroy();
+        }
       }
       this.activeComponents.length = 0;
     }
