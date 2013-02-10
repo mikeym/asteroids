@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dcbde3de-9506-428c-ad83-94a97c69c930" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/index.html" afterPath="$PROJECT_DIR$/site/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/scripts/main.js" afterPath="$PROJECT_DIR$/site/scripts/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/scripts/ngine.physics.js" afterPath="$PROJECT_DIR$/site/scripts/ngine.physics.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/scripts/ngine.sprites.js" afterPath="$PROJECT_DIR$/site/scripts/ngine.sprites.js" />
     </list>
     <ignored path="asteroids.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,10 +24,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ngine-test-physics.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-physics.js">
+      <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/site/scripts/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="33" selection-start="3379" selection-end="3379" vertical-scroll-proportion="0.23029557">
+            <state line="114" column="0" selection-start="3804" selection-end="3804" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -35,20 +35,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ngine-test-physics.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-physics.html">
+      <file leaf-file-name="asteroids.ship.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/site/scripts/asteroids.ship.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="65" selection-start="464" selection-end="464" vertical-scroll-proportion="-10.461538">
-              <folding />
+            <state line="139" column="53" selection-start="4426" selection-end="4426" vertical-scroll-proportion="0.49753696">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ngine.sprites.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/site/scripts/ngine.sprites.js">
+      <file leaf-file-name="asteroids.large-asteroid.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/site/scripts/asteroids.large-asteroid.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="110" column="0" selection-start="3414" selection-end="3414" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="105" column="23" selection-start="3350" selection-end="3350" vertical-scroll-proportion="-32.454544">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -56,7 +60,7 @@
       <file leaf-file-name="ngine.physics.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/site/scripts/ngine.physics.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="531" column="31" selection-start="19515" selection-end="19515" vertical-scroll-proportion="0.0">
+            <state line="536" column="45" selection-start="19674" selection-end="19686" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -76,12 +80,7 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/site/scripts/ngine.assets.js" />
-        <option value="$PROJECT_DIR$/site/tests/ngine-test-scenes.html" />
-        <option value="$PROJECT_DIR$/site/scripts/ngine.entity.js" />
-        <option value="$PROJECT_DIR$/site/scripts/ngine.evented.js" />
         <option value="$PROJECT_DIR$/site/scripts/ngine.input.js" />
-        <option value="$PROJECT_DIR$/site/scripts/main.js" />
         <option value="$PROJECT_DIR$/site/tests/ngine-test-scenes.js" />
         <option value="$PROJECT_DIR$/site/tests/ngine-test-animations.html" />
         <option value="$PROJECT_DIR$/site/scripts/ngine.animation.js" />
@@ -89,9 +88,14 @@
         <option value="$PROJECT_DIR$/site/tests/ngine-test-sprites.js" />
         <option value="$PROJECT_DIR$/site/tests/ngine-test-animations.js" />
         <option value="$PROJECT_DIR$/site/scripts/ngine.sprites.js" />
-        <option value="$PROJECT_DIR$/site/scripts/ngine.physics.js" />
         <option value="$PROJECT_DIR$/site/tests/ngine-test-physics.html" />
         <option value="$PROJECT_DIR$/site/tests/ngine-test-physics.js" />
+        <option value="$PROJECT_DIR$/site/index.html" />
+        <option value="$PROJECT_DIR$/site/tests/asteroids.ship.js" />
+        <option value="$PROJECT_DIR$/site/scripts/ngine.physics.js" />
+        <option value="$PROJECT_DIR$/site/scripts/main.js" />
+        <option value="$PROJECT_DIR$/site/scripts/asteroids.large-asteroid.js" />
+        <option value="$PROJECT_DIR$/site/scripts/asteroids.ship.js" />
       </list>
     </option>
   </component>
@@ -264,6 +268,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="site" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="asteroids" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="asteroids" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="planning" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -276,7 +298,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.General" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Rettig Book/ch10" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/site/scripts" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -285,6 +307,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/site/tests" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/site/scripts" />
     </key>
   </component>
   <component name="RunManager">
@@ -345,7 +370,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="59" y="22" width="1386" height="960" extended-state="0" />
+    <frame x="59" y="22" width="1386" height="960" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.4965035" order="7" side_tool="false" content_ui="tabs" />
@@ -421,50 +446,9 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/site/tests/asteroids-game-sprites.json">
+    <entry file="file://$PROJECT_DIR$/site/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="16" selection-start="961" selection-end="961" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-scenes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="38" selection-start="2333" selection-end="2349" vertical-scroll-proportion="0.4187192">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/scripts/ngine.animation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="134" column="27" selection-start="4152" selection-end="4152" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/scripts/ngine.input.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="0" selection-end="331" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-sprites.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="1187" selection-end="1187" vertical-scroll-proportion="0.71374047" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-sprites.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="68" selection-start="3677" selection-end="3677" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-animations.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="7" selection-start="1198" selection-end="1198" vertical-scroll-proportion="-20.923077" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-animations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="0" selection-start="5041" selection-end="5129" vertical-scroll-proportion="0.0">
+        <state line="37" column="90" selection-start="1495" selection-end="1495" vertical-scroll-proportion="-11.923077">
           <folding />
         </state>
       </provider>
@@ -476,16 +460,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/scripts/ngine.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.4495074">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-canvas.js">
+    <entry file="file://$PROJECT_DIR$/site/scripts/ngine.evented.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
@@ -494,7 +469,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/scripts/ngine.canvas2d.js">
+    <entry file="file://$PROJECT_DIR$/site/scripts/ngine.entity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/scripts/ngine.assets.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-physics.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="0" selection-start="1226" selection-end="2160" vertical-scroll-proportion="-2.0566502">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-sprites.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
@@ -503,28 +505,73 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/site/scripts/ngine.sprites.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="0" selection-start="3414" selection-end="3414" vertical-scroll-proportion="0.0">
+        <state line="110" column="0" selection-start="3414" selection-end="3414" vertical-scroll-proportion="-2.16133">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/scripts/ngine.scenes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="25" selection-start="186" selection-end="211" vertical-scroll-proportion="-5.7204432">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-sprites.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="52" selection-start="2718" selection-end="2736" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/scripts/ngine.animation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/data/asteroids-game-sprites.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/site/scripts/ngine.physics.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="531" column="31" selection-start="19515" selection-end="19515" vertical-scroll-proportion="0.0">
+        <state line="536" column="45" selection-start="19674" selection-end="19686" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-physics.html">
+    <entry file="file://$PROJECT_DIR$/site/scripts/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="65" selection-start="464" selection-end="464" vertical-scroll-proportion="-10.461538">
-          <folding />
+        <state line="114" column="0" selection-start="3804" selection-end="3804" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/tests/ngine-test-physics.js">
+    <entry file="file://$PROJECT_DIR$/site/scripts/asteroids.large-asteroid.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="33" selection-start="3379" selection-end="3379" vertical-scroll-proportion="0.23029557">
+        <state line="105" column="23" selection-start="3350" selection-end="3350" vertical-scroll-proportion="-32.454544">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/scripts/asteroids.ship.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="53" selection-start="4426" selection-end="4426" vertical-scroll-proportion="0.49753696">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

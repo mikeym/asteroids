@@ -13,88 +13,116 @@ asteroids.dbug = true;
 asteroids.loader = (function () {
   var that = this,
       a = asteroids,
-      firstRun = true,
       resourcesLoaded = 0;
 
   if (a.dbug) { console.log('asteroids.loader loaded'); }
 
-  if (firstRun) {
-    firstRun = false;
+  // TODO Welcome text
+  // TODO loading progress indicator
 
-    Modernizr.load([
-      {
-        load: [
-          'scripts/underscore-min.js',
-          'scripts/plugins.js',
+  Modernizr.load([
+    {
+      // Load plugin and Ngine scripts
+      load: [
+        'scripts/underscore-min.js',
+        'scripts/plugins.js',
+        'scripts/Box2dWeb-2.1.a.3.min.js',
 
-          // the Ngine script load order is significant...
-          'scripts/ngine.js',
-          'scripts/ngine.gameloop.js',
-          'scripts/ngine.evented.js',
-          'scripts/ngine.component.js',
-          'scripts/ngine.entity.js',
-          'scripts/ngine.canvas2d.js',
-          'scripts/ngine.input.js',
-          'scripts/ngine.assets.js',
-          'scripts/ngine.sprites.js',
-          'scripts/ngine.scenes.js',
-          'scripts/ngine.animation.js'
+        // the Ngine script load order is significant...
+        'scripts/ngine.js',
+        'scripts/ngine.gameloop.js',
+        'scripts/ngine.evented.js',
+        'scripts/ngine.component.js',
+        'scripts/ngine.entity.js',
+        'scripts/ngine.canvas2d.js',
+        'scripts/ngine.input.js',
+        'scripts/ngine.assets.js',
+        'scripts/ngine.sprites.js',
+        'scripts/ngine.scenes.js',
+        'scripts/ngine.animation.js',
+        'scripts/ngine.physics.js'
+      ],
 
-        ],
-        complete: function () {
-          if (a.dbug) { console.log('asteroids.loader Modernizr load complete'); }
-          // Create Ngine instance
-          a.Ngine = new Ngine();
+      // When plugin and engine scripts are loaded, setup the Ngine include modules
+      complete: function () {
+        if (a.dbug) { console.log('asteroids.loader Modernizr load complete'); }
 
-          // Load game assets
-          if (a.dbug) { console.log('loading game assets...'); }
-          a.Ngine.load(['asteroids-game-sprites.png', 'asteroids-game-sprites.json']);
+        // Create Ngine instance, pointing to resource paths
+        a.Ngine = new Ngine();
+        a.Ngine.options.imagePath = 'images/';
+        a.Ngine.options.dataPath = 'data/';
+        a.Ngine.options.fontsPath = 'fonts/';
 
-          // Hook up the input module, and setup a test canvas
-          a.Ngine.includeModule('Input');
-          a.Ngine.setupCanvas('gamecanvas', {desiredWidth : 640, desiredHeight : 480});
-          a.Ngine.input.keyboardControls();
+        // Load game assets
+        if (a.dbug) { console.log('loading game assets...'); }
 
-          // Testing Testing 1 2 3
-          a.Ngine.setGameLoop(a.testCanvas);
-          a.testKeyboardEvents();
+        // Hook up the sprites module, and setup a test canvas
+        a.Ngine.includeModule('Sprites, Input, Scenes, Animation, Physics');
 
-        }
+        // Create the canvas
+        a.Ngine.setupCanvas('gamecanvas', {desiredWidth : 640, desiredHeight : 480});
+
+        // Hook up the keyboard event handling
+        a.Ngine.input.keyboardControls();
+
+        if (a.dbug) { console.log('keyboard controls setup, first loading completed'); }
       }
-    ]);
-  }
+    },
+
+    {
+      // Once plugins and Ngine are loaded, load game components that rely on them
+      load: [
+        'scripts/asteroids.ship.js',
+        'scripts/asteroids.large-asteroid.js'
+      ],
+
+      // Start the game once they're loaded
+      complete: function() {
+        if (a.dbug) { console.log('Asteroids game scripts loaded, now loading assets...'); }
+
+        // Load the game sprites and data, then fire the test function
+        asteroids.Ngine.load(['asteroids-game-sprites.png', 'asteroids-game-sprites.json'],
+          startAsteroidsGame);
+      }
+    }
+  ]);
 })();
 
-// testing 1 2 3
-asteroids.testCanvas = function() {
-    var ctx = asteroids.Ngine.ctx;
-    asteroids.Ngine.clearCanvas();
+function startAsteroidsGame() {
+  var n = Ngine.getInstance(),
+      a = asteroids,
+      shipScene;
 
-    ctx.beginPath();
-    ctx.strokeStyle = '#00dddd';
-    ctx.lineWidth = 2;
-    ctx.moveTo(75, 75);
-    ctx.lineTo(100, 100);
-    ctx.stroke();
+  // Load the sprites and generate them
+  if (a.dbug) { console.log('Compiling Asteroids spritesheet and adding animation data...'); }
+  n.compileSheets('asteroids-game-sprites.png', 'asteroids-game-sprites.json');
+  n.addAnimationData(a.shipAnimationGroupName, a.shipAnimationSequences);
+  n.addAnimationData(a.largeAsteroidAnimationGroupNames[0], a.largeAsteroidAnimationSequences);
+  n.addAnimationData(a.largeAsteroidAnimationGroupNames[1], a.largeAsteroidAnimationSequences);
+  n.addAnimationData(a.largeAsteroidAnimationGroupNames[2], a.largeAsteroidAnimationSequences);
 
-    ctx.font = '20px BPdotsSquaresLight';
-    ctx.fillStyle = '#00dddd';
-    ctx.fillText('Hi There', 50, 50);
+  // Create a scene for testing
+  if (a.dbug) { console.log('Creating Ship scene...'); }
+  shipScene = new Ngine.Scene(function(stage) {
+    stage.addComponent('world');
+    stage.insert(new asteroids.Ship());
+
+    // testing
+    stage.insert(new asteroids.LargeAsteroid());
+    stage.insert(new asteroids.LargeAsteroid());
+    stage.insert(new asteroids.LargeAsteroid());
+    stage.insert(new asteroids.LargeAsteroid());
+
+    // B2d Debugging
+    if (a.dbug) {stage.world.toggleDebugDraw(true); }
+  });
+
+  // Add the scene, creating a stage
+  if (a.dbug) { console.log('Creating a stage by adding the ship scene...'); }
+  n.addScene('AsteroidsGame', shipScene);
+
+  // Add the stage to be updated and rendered
+  if (a.dbug) { console.log('Staging the scene...'); }
+  n.stageScene('AsteroidsGame');
+
 };
-
-// testing 1 2 3
-asteroids.testKeyboardEvents = function() {
-  var ani = asteroids.Ngine.input;
-  ani.bind('fire', function() { console.log('fire pew-pew'); });
-  ani.bind('fireUp', function() { console.log('fireUp pew-pew end'); });
-  ani.bind('left', function() { console.log('left rotate'); });
-  ani.bind('leftUp', function() { console.log('leftUp rotate end'); });
-  ani.bind('right', function() { console.log('right rotate'); });
-  ani.bind('rightUp', function() { console.log('rightUp rotate end'); });
-  ani.bind('thruster', function() { console.log('up thruster'); });
-  ani.bind('thrusterUp', function() { console.log('upUp thruster end'); });
-  ani.bind('shield', function() { console.log('down shield'); });
-  ani.bind('shieldUp', function() { console.log('downUp shield end'); });
-  ani.bind('menu', function() { console.log('esc menu'); });
-  ani.bind('menuUp', function() { console.log('escUp menu end'); });
-}

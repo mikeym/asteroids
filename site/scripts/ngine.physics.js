@@ -479,7 +479,6 @@ Ngine.Physics = function() {
         this._body._bbid = properties.id;
       }, // inserted
 
-
       // removed
       // Called after the body's parent entity has been removed from the scene.
       // Removes the rigid body from the physics world.
@@ -511,23 +510,23 @@ Ngine.Physics = function() {
         // Asteroids-specific game viewport wrapping, could probably put inside a switch
 
         // Left / right edge wrapping
-        if (properties.x + entityWidth + slipPixels < 0) {
+        if (properties.x + entityWidth < slipPixels) {
           properties.x = canvasWidth;
           desiredPosX = properties.x / stageScale;
           resetPosition = true;
-        } else if ((properties.x + entityWidth) > (canvasWidth + entityWidth + slipPixels)) {
-          properties.x = 0;
+        } else if ((properties.x + entityWidth) > (canvasWidth + entityWidth)) {
+          properties.x = slipPixels;
           desiredPosX = properties.x / stageScale;
           resetPosition = true;
         }
 
         // Top/bottom edge wrapping
-        if (properties.y + entityHeight + slipPixels < 0) {
+        if (properties.y + entityHeight < slipPixels) {
           properties.y = canvasHeight;
           desiredPosY = properties.y / stageScale;
           resetPosition = true;
-        } else if ((properties.y + entityHeight) > (canvasHeight + entityHeight + slipPixels)) {
-          properties.y = 0;
+        } else if ((properties.y + entityHeight) > (canvasHeight + entityHeight)) {
+          properties.y = slipPixels;
           desiredPosY = properties.y / stageScale;
           resetPosition = true;
         }
