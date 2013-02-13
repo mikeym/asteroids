@@ -52,6 +52,7 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
       doSleep: false,
       exploding: false,
       isInitializing: true,
+      fixedRotation: false,
       leftToRight: Math.random() * 2 > 1
     });
 
@@ -91,6 +92,7 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
     if (p.isInitializing) {
       myBody = this.physics.getBody();
       worldCenter = myBody.GetWorldCenter();
+      randomPointOnBody = myBody.GetWorldPoint(new Ngine.B2d.Vec(10, 2));
       cosOfAngle = Math.cos(p.angle); // direction x
       inclineUp = Math.random() * 2 > 1;
 
@@ -108,6 +110,8 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
         myBody.ApplyForce({x: -cosOfAngle * p.howFastItScoots, y: sinOfAngle * p.howFastItScoots},
           worldCenter);
       }
+      // Add a bit of random rotation
+      myBody.SetAngularVelocity(Math.random());
 
       // Once is plenty
       p.isInitializing = false;
@@ -125,10 +129,28 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
 
   // When an asteroid hits the ship, set the ship's exploding property.
   // The ship will explode during the next step.
+  // We also carefully time the handling of the ship explosion by the game.
   contact: function(contact) {
+    var that = this;
+
+    // Contact made with the ship, set properties if shields aren't on
+    // TODO see if you can refactor this to just have the logic in one place in the ship
     if (contact.name && contact.name ==='Ship') {
-      console.log('Asteroid hit ship');
-      contact.properties.exploding = true;
+      if (contact.properties.shieldsOn === false) {
+        console.log('Asteroid hit ship');
+        contact.properties.exploding = true;
+        contact.properties.ded = true;
+
+        // Outer timeout to remove the ship after the animation plays out
+        setTimeout(function() {
+          that.parentStage.remove(contact);
+
+          // Inner timeout to have the game handle the ship explosion
+          setTimeout(function() {
+            asteroids.Game.handleShipExplosion();
+          }, 1000); // inner timeout
+        }, 500); // outer timeout
+      }
     } else {
       // TODO maybe apply a bit of force or something so the asteroids don't all stick together
     }

@@ -52,6 +52,7 @@ asteroids.Ship = Ngine.Sprite.extend({
       rotatingRight: false,
       shieldsOn: false,
       exploding: false,
+      ded: false,
       fixedRotation: true, // don't let collisions with shields on start us turning
       x: 320,
       y: 240,
@@ -86,7 +87,6 @@ asteroids.Ship = Ngine.Sprite.extend({
 
     // Listen for physics system contact with the ship so it can blow up
     this.bind('contact', this, 'contact');
-    this.bind('endContact', this, 'endContact');
 
     if (asteroids.dbug) { console.log('Ship Created'); }
   },
@@ -100,11 +100,9 @@ asteroids.Ship = Ngine.Sprite.extend({
     // from the stage, and destroying it. If shields are up we're safe.
     if (p.exploding && !p.shieldsOn) {
       this.play('exploding', 1);
-      this.bind('animEnd', this, function() {
-        this.parentStage.remove(this);
-        //this.destroy();
-        // TODO gameplay, score, new ship, etc
-      });
+//      this.bind('animEnd', this, function() {
+//        this.isVisible = false;
+//      });
 
     } else if (p.thrusting) {
 
@@ -219,13 +217,26 @@ asteroids.Ship = Ngine.Sprite.extend({
   },
 
   // Bound to the physics system's beginContact event
-  // Sets the exploding property to true. It gets handled in the step.
+  // Sets the exploding property to true. It gets handled in the step. Tell the game.
   contact: function(contact) {
-    this.properties.exploding = true;
-  },
+    var that = this;
 
-  endContact: function(contact) {
-    this.properties.exploding = false;
+    // Shields protect from collisions
+    if (that.properties.shieldOn === false) {
+      that.properties.exploding = true;
+      that.properties.ded = true;
+
+      // Outer timeout to remove the ship after the animation plays out
+      setTimeout(function() {
+        that.parentStage.remove(this);
+
+        // Inner timeout to have the game handle the ship explosion
+        setTimeout(function() {
+          asteroids.Game.handleShipExplosion();
+        }, 1000); // inner timeout
+      }, 500); // outer timeout
+
+    }
   }
 
 }); // Ship

@@ -72,6 +72,7 @@ asteroids.loader = (function () {
     {
       // Once plugins and Ngine are loaded, load game components that rely on them
       load: [
+        'scripts/asteroids.game.js',
         'scripts/asteroids.ship.js',
         'scripts/asteroids.large-asteroid.js'
       ],
@@ -102,27 +103,9 @@ function startAsteroidsGame() {
   n.addAnimationData(a.largeAsteroidAnimationGroupNames[2], a.largeAsteroidAnimationSequences);
 
   // Create a scene for testing
-  if (a.dbug) { console.log('Creating Ship scene...'); }
-  shipScene = new Ngine.Scene(function(stage) {
-    stage.addComponent('world');
-    stage.insert(new asteroids.Ship());
+  if (a.dbug) { console.log('Starting the game...'); }
 
-    // testing
-    stage.insert(new asteroids.LargeAsteroid());
-    stage.insert(new asteroids.LargeAsteroid());
-    stage.insert(new asteroids.LargeAsteroid());
-    stage.insert(new asteroids.LargeAsteroid());
-
-    // B2d Debugging
-    if (a.dbug) {stage.world.toggleDebugDraw(true); }
-  });
-
-  // Add the scene, creating a stage
-  if (a.dbug) { console.log('Creating a stage by adding the ship scene...'); }
-  n.addScene('AsteroidsGame', shipScene);
-
-  // Add the stage to be updated and rendered
-  if (a.dbug) { console.log('Staging the scene...'); }
-  n.stageScene('AsteroidsGame');
+  // Start the game at the default level
+  a.Game.startLevel(a.Game.currentLevel);
 
 };
