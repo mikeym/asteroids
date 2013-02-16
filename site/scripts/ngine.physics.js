@@ -514,7 +514,7 @@ Ngine.Physics = function() {
           properties.x = canvasWidth;
           desiredPosX = properties.x / stageScale;
           resetPosition = true;
-        } else if ((properties.x + entityWidth) > (canvasWidth + entityWidth)) {
+        } else if ((properties.x - entityWidth) > (canvasWidth - slipPixels)) {
           properties.x = slipPixels;
           desiredPosX = properties.x / stageScale;
           resetPosition = true;
@@ -525,7 +525,7 @@ Ngine.Physics = function() {
           properties.y = canvasHeight;
           desiredPosY = properties.y / stageScale;
           resetPosition = true;
-        } else if ((properties.y + entityHeight) > (canvasHeight + entityHeight)) {
+        } else if ((properties.y - entityHeight) > (canvasHeight - slipPixels)) {
           properties.y = slipPixels;
           desiredPosY = properties.y / stageScale;
           resetPosition = true;

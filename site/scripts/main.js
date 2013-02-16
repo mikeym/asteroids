@@ -27,6 +27,7 @@ asteroids.loader = (function () {
         'scripts/underscore-min.js',
         'scripts/plugins.js',
         'scripts/Box2dWeb-2.1.a.3.min.js',
+        'scripts/asteroids.starfield.js',   // starfield starts up early
 
         // the Ngine script load order is significant...
         'scripts/ngine.js',
@@ -74,7 +75,9 @@ asteroids.loader = (function () {
       load: [
         'scripts/asteroids.game.js',
         'scripts/asteroids.ship.js',
-        'scripts/asteroids.large-asteroid.js'
+        'scripts/asteroids.large-asteroid.js',
+        'scripts/asteroids.medium-asteroid.js',
+        'scripts/asteroids.small-asteroid.js'
       ],
 
       // Start the game once they're loaded
@@ -101,11 +104,17 @@ function startAsteroidsGame() {
   n.addAnimationData(a.largeAsteroidAnimationGroupNames[0], a.largeAsteroidAnimationSequences);
   n.addAnimationData(a.largeAsteroidAnimationGroupNames[1], a.largeAsteroidAnimationSequences);
   n.addAnimationData(a.largeAsteroidAnimationGroupNames[2], a.largeAsteroidAnimationSequences);
+  n.addAnimationData(a.mediumAsteroidAnimationGroupNames[0], a.mediumAsteroidAnimationSequences);
+  n.addAnimationData(a.mediumAsteroidAnimationGroupNames[1], a.mediumAsteroidAnimationSequences);
+  n.addAnimationData(a.mediumAsteroidAnimationGroupNames[2], a.mediumAsteroidAnimationSequences);
+  n.addAnimationData(a.smallAsteroidAnimationGroupNames[0], a.smallAsteroidAnimationSequences);
+  n.addAnimationData(a.smallAsteroidAnimationGroupNames[1], a.smallAsteroidAnimationSequences);
+  n.addAnimationData(a.smallAsteroidAnimationGroupNames[2], a.smallAsteroidAnimationSequences);
 
   // Create a scene for testing
   if (a.dbug) { console.log('Starting the game...'); }
 
-  // Start the game at the default level
-  a.Game.startLevel(a.Game.currentLevel);
+  // Start a new game
+  a.Game.startNewGame();
 
 };

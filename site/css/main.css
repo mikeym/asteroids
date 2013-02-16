@@ -185,6 +185,20 @@ a:hover, a:active {
   border: 2px #222 solid;
   -webkit-box-shadow: 0px 0px 15px 15px rgba(147, 150, 135, 0.3);
   box-shadow: 0px 0px 15px 15px rgba(147, 150, 135, 0.3);
+  position: relative;
+}
+
+#starfieldcanvas {
+  margin: 1px;
+  padding: 0;
+  border: 1px #222 solid;
+  -webkit-border-radius: 21px;
+  border-radius: 21px;
+  outline: 0;
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #gamecanvas {
@@ -196,6 +210,27 @@ a:hover, a:active {
   -webkit-box-shadow: 0px 0px 3px 3px rgba(147, 150, 135, 0.3);
   box-shadow: 0px 0px 3px 3px rgba(147, 150, 135, 0.3);
   outline: 0;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#gameLives {
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  display: none;
+  z-index: 1;
+}
+
+#gameScore {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  text-align: right;
+  display: none;
+  z-index: 1;
 }
 
 footer p {

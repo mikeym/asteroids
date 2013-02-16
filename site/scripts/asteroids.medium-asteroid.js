@@ -1,4 +1,4 @@
-// Asteroids Large Asteroid module
+// Asteroids Medium Asteroid module
 // Version 0.1
 // UW Gameplay, Winter Quarter 2013
 // Mikey Micheletti
@@ -7,14 +7,14 @@
 var Ngine = Ngine || { },
   asteroids = asteroids || { };
 
-// The names of the 3 sets of large asteroids sprites in the spritesheet
-asteroids.largeAsteroidAnimationGroupNames = [
-  'asteroid-large-1', 'asteroid-large-2', 'asteroid-large-3'
+// The names of the 3 sets of medium-sized asteroids sprites in the spritesheet
+asteroids.mediumAsteroidAnimationGroupNames = [
+  'asteroid-medium-1', 'asteroid-medium-2', 'asteroid-medium-3'
 ];
 
-// The different large asteroid animations share the same sequences
+// The different medium asteroid animations share the same sequences
 // Note repeated blank frames at tail of exploding sequence
-asteroids.largeAsteroidAnimationSequences =  {
+asteroids.mediumAsteroidAnimationSequences =  {
   normal: {
     frames: [0],
     rate: 1/2
@@ -26,28 +26,30 @@ asteroids.largeAsteroidAnimationSequences =  {
   }
 };
 
-asteroids.LargeAsteroid = Ngine.Sprite.extend({
-  name: 'LargeAsteroid',
+asteroids.MediumAsteroid = Ngine.Sprite.extend({
+  name: 'MediumAsteroid',
 
-  // The Large Asteroid's properties control animations and appearance
-  init: function() {
+  // The Medium Asteroid's properties control animations and appearance.
+  // We receive the last position and angle of a large asteroid that croaked,
+  // and sort of tweak the values a little as if we knew how math worked...
+  init: function(lastPosition, lastAngle) {
     var p;
 
     this._super({
       spriteIndex: 0,
-      sheetName: asteroids.largeAsteroidAnimationGroupNames[0],
-      animSetName: asteroids.largeAsteroidAnimationGroupNames[0],
+      sheetName: asteroids.mediumAsteroidAnimationGroupNames[0],
+      animSetName: asteroids.mediumAsteroidAnimationGroupNames[0],
       rate: 1/5,
-      x: 0,
-      y: 0,
-      angle: 0,
+      x: lastPosition.x * Ngine.PhysicsWorldDefaults.scale,
+      y: lastPosition.y * Ngine.PhysicsWorldDefaults.scale,
+      angle: lastAngle * Math.random() * (Math.PI / 2),
       shape: 'circle',
-      shape_radius: 38,         // larger than the sprite graphic so we get edge collisions
+      shape_radius: 32,         // larger than the sprite graphic so we get edge collisions
       bodyType: 'dynamic',      // can bump into stuff
       linearDamping: 10.0,      // a little bit of drag seems to look right
-      density: 100.0,           // big heavy rocks
-      mass: 200,                // big heavy rocks
-      howFastItScoots: 2600.0,  // needs a lotta scoot if it's heavy
+      density: 75.0,            // big heavy rocks
+      mass: 150,                // big heavy rocks
+      howFastItScoots: 3000.0,  // needs a lotta scoot if it's heavy
       doSleep: false,
       exploding: false,
       isInitializing: true,
@@ -60,13 +62,8 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
 
     // Associate the spritesheet and animations now
     p.spriteIndex = Math.floor(Math.random() * 3);
-    p.sheetName = asteroids.largeAsteroidAnimationGroupNames[p.spriteIndex];
-    p.animSetName = asteroids.largeAsteroidAnimationGroupNames[p.spriteIndex];
-
-    // Randomize asteroid position and angle properties
-    p.x = p.leftToRight? 0 - (p.width / 2) : this.ngine.canvasWidth;
-    p.y = Math.floor(Math.random() * (560 - 40) + 40);
-    p.angle = Math.random();
+    p.sheetName = asteroids.mediumAsteroidAnimationGroupNames[p.spriteIndex];
+    p.animSetName = asteroids.mediumAsteroidAnimationGroupNames[p.spriteIndex];
 
     // Add animation and physics capabilities to the asteroid
     this.addComponent('animation');
@@ -75,41 +72,31 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
     // Listen for physics system contact
     this.bind('contact', this, 'contact');
 
-    if (asteroids.dbug) { console.log('Large Asteroid[' +
+    if (asteroids.dbug) { console.log('Medium Asteroid[' +
                           this.properties.spriteIndex + '] created'); }
   },
 
   // Decision-making about which frames to present
+  // On the first visit only we give it a little shove
   step: function(dt) {
-    var cosOfAngle, // most of these only used when initializing the first time
-      sinOfAngle,
-      myBody,
-      worldCenter,
-      inclineUp,
-      p = this.properties;
+    var myBody,
+        worldCenter,
+        p = this.properties;
 
     // Only apply force once to the asteroid, the first time we get here. After that it drifts...
+    // Less randomness than the large asteroid.
     if (p.isInitializing) {
       myBody = this.physics.getBody();
       worldCenter = myBody.GetWorldCenter();
       randomPointOnBody = myBody.GetWorldPoint(new Ngine.B2d.Vec(10, 2));
-      cosOfAngle = Math.cos(p.angle); // direction x
-      inclineUp = Math.random() * 2 > 1;
-
-      // Incline the force applied to the asteroid up or down based on random inclineUp value
-      sinOfAngle = inclineUp ? Math.sin(p.angle) : -Math.sin(p.angle); // direction y
 
       // Physics/entity angles match
       this.physics.setAngle(p.angle);
 
-      // Apply force
-      if (p.leftToRight) {
-        myBody.ApplyForce({x: cosOfAngle * p.howFastItScoots, y: sinOfAngle * p.howFastItScoots},
-          worldCenter);
-      } else {
-        myBody.ApplyForce({x: -cosOfAngle * p.howFastItScoots, y: sinOfAngle * p.howFastItScoots},
-          worldCenter);
-      }
+      myBody.ApplyForce({x: Math.cos(p.angle) * p.howFastItScoots,
+                         y: Math.cos(p.angle) * p.howFastItScoots},
+                         worldCenter);
+
       // Add a bit of random rotation
       myBody.SetAngularVelocity(Math.random());
 
@@ -133,7 +120,7 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
     }
   },
 
-  // Makes the large asteroid asplode, called by the ship.
+  // Makes the medium asteroid asplode, called by the ship.
   // Contact object will represent this asteroid.
   explode: function (contact) {
     var that = this,
@@ -149,7 +136,7 @@ asteroids.LargeAsteroid = Ngine.Sprite.extend({
         that.parentStage.remove(that);
         // Inner timeout to have the game handle the asteroid explosion
         setTimeout(function() {
-            asteroids.Game.handleLargeAsteroidExplosion(lastPosition, lastAngle);
+          asteroids.Game.handleMediumAsteroidExplosion(lastPosition, lastAngle);
         }, 500); // inner timeout
       }, 250); // outer timeout
     }

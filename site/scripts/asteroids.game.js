@@ -65,6 +65,9 @@ asteroids.Game = {
       this.countAvailableLives += 1;
       // TODO fanfare or something
     }
+    // Update our scorecard...
+    $('#gameScoreNumber').html(this.score);
+    $('#gameLivesNumber').html(this.countAvailableLives);
     if (asteroids.dbug) {
       console.log('Score: ' + this.score + ', Lives: ' + this.countAvailableLives);
     }
@@ -83,9 +86,17 @@ asteroids.Game = {
     // cleanup and make all the old stuff go away
     n.clearStages();
 
+    // reset the level counters
+    that.countLargeAsteroids = 0;
+    that.countMediumAsteroids = 0;
+    that.countSmallAsteroids = 0;
+    that.countLargeSaucers = 0;
+    that.countSmallSaucers = 0;
+
     // create a new game scene
     that.gameScene = new Ngine.Scene(function(stage) {
       stage.addComponent('world');
+      //stage.world.toggleDebugDraw(true);
       that.gameStage = stage;
 
       // Now setup the level with the right number of asteroids and ship or whatever
@@ -93,6 +104,7 @@ asteroids.Game = {
         that.gameStage.insert(new asteroids.Ship());
         for (i = 0; i < bigAsteroids; i++ ) {
           that.gameStage.insert(new asteroids.LargeAsteroid());
+          that.countLargeAsteroids += 1;
         }
         if (asteroids.dbug) {
           console.log('Game Level ' + levelNumber + ' started with ' +
@@ -110,11 +122,11 @@ asteroids.Game = {
 
   },
 
-  // Called when the ship explodes, replay same level or new game
+  // Called when the ship explodes, replay same level or new game, update lives.
   handleShipExplosion: function() {
     if (asteroids.dbug) { console.log('Handling ship explosion in Game'); }
-
     this.countAvailableLives -= 1;
+    $('#gameLivesNumber').html(this.countAvailableLives);
     if (this.countAvailableLives > 0) {
       this.startLevel(this.currentLevel);
     } else {
@@ -123,22 +135,39 @@ asteroids.Game = {
   },
 
   // Called when a large asteroid explodes, will never indicate the end of a level
-  handleLargeAsteroidExplosion: function() {
+  handleLargeAsteroidExplosion: function(lastPosition, lastAngle) {
     this.bumpScore(this.largeAsteroidScoreBump);
-    // TODO create two medium asteroids where the large asteroid was
+    this.countLargeAsteroids -= 1;
+    this.gameStage.insert(new asteroids.MediumAsteroid(lastPosition, lastAngle));
+    // Always get at least one new medium asteroid. If less than max, you get two
+    if (this.countLargeAsteroids +
+        this.countMediumAsteroids +
+        this.countSmallAsteroids < this.maxAsteroids) {
+      this.gameStage.insert(new asteroids.MediumAsteroid(lastPosition, lastAngle));
+    }
+    this.countMediumAsteroids += 2;
   },
 
   // Called when a medium asteroid explodes, will never indicate the end of a level
-  handleMediumAsteroidExplosion: function() {
+  handleMediumAsteroidExplosion: function(lastPosition, lastAngle) {
     this.bumpScore(this.mediumAsteroidScoreBump);
-    // TODO create two small asteroids where the medium asteroid was
+    this.countMediumAsteroids -= 1;
+    this.gameStage.insert(new asteroids.SmallAsteroid(lastPosition, lastAngle));
+    // Always get at least one new small asteroid. If less than max, you get two
+    if (this.countLargeAsteroids +
+        this.countMediumAsteroids +
+        this.countSmallAsteroids < this.maxAsteroids) {
+      this.gameStage.insert(new asteroids.SmallAsteroid(lastPosition, lastAngle));
+    }
+    this.countSmallAsteroids += 2;
   },
 
   // Called when a small asteroid explodes, may indicate we've cleared the level
-  // Otherwise no action needed besides scorekeeping
+  // Otherwise no action needed besides scorekeeping. We don't care about its last position.
   handleSmallAsteroidExplosion: function() {
     this.bumpScore(this.smallAsteroidScoreBump);
-    if (this.hasClearedLevel) {
+    this.countSmallAsteroids -= 1;
+    if (this.hasClearedLevel()) {
       this.currentLevel += 1;
       this.startLevel(this.currentLevel);
     }
@@ -170,15 +199,17 @@ asteroids.Game = {
     // TODO show the menu if we have one, pause game
   },
 
-//  // Starts up the game and sets the game scene and stage at a particular level
-//  setGameScene: function(level) {
-//    var that = this;
-//    this.gameScene = new Ngine.Scene(function(stage) {
-//      stage.addComponent('world');
-//      that.gameStage = stage;
-//      that.startLevel(level);
-//      })
-//    }
+  // Starts a new game and initializes the score
+  startNewGame: function() {
+    this.countAvailableLives = 300000;
+    this.score = 0;
+    $('#gameScoreNumber').html(this.score);
+    $('#gameScore').show();
+    $('#gameLivesNumber').html(this.countAvailableLives);
+    $('#gameLives').show();
+
+    this.startLevel(0);
+  }
 };
 
 

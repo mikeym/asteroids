@@ -2,120 +2,120 @@
   "asteroid-large-1": {
     "sx": 0,
     "sy": 0,
-    "cols": 3,
+    "cols": 4,
     "tilew": 64,
     "tileh": 64,
-    "frames": 3
+    "frames": 4
   },
   "asteroid-large-2": {
-    "sx": 192,
+    "sx": 256,
     "sy": 0,
-    "cols": 3,
+    "cols": 4,
     "tilew": 64,
     "tileh": 64,
-    "frames": 3
+    "frames": 4
   },
   "asteroid-large-3": {
-    "sx": 384,
+    "sx": 512,
     "sy": 0,
-    "cols": 3,
+    "cols": 4,
     "tilew": 64,
     "tileh": 64,
-    "frames": 3
+    "frames": 4
   },
 
   "asteroid-medium-1": {
     "sx": 0,
     "sy": 70,
-    "cols": 3,
+    "cols": 4,
     "tilew": 40,
     "tileh": 40,
-    "frames": 3
+    "frames": 4
   },
   "asteroid-medium-2": {
-    "sx": 120,
+    "sx": 160,
     "sy": 70,
-    "cols": 3,
+    "cols": 4,
     "tilew": 40,
     "tileh": 40,
-    "frames": 3
+    "frames": 4
   },
   "asteroid-medium-3": {
-    "sx": 240,
+    "sx": 320,
     "sy": 70,
-    "cols": 3,
+    "cols": 4,
     "tilew": 40,
     "tileh": 40,
-    "frames": 3
+    "frames": 4
   },
 
   "asteroid-small-1": {
     "sx": 0,
     "sy": 120,
-    "cols": 3,
+    "cols": 4,
     "tilew": 24,
     "tileh": 24,
-    "frames": 3
+    "frames": 4
   },
   "asteroid-small-2": {
-    "sx": 72,
+    "sx": 96,
     "sy": 120,
-    "cols": 3,
+    "cols": 4,
     "tilew": 24,
     "tileh": 24,
-    "frames": 3
+    "frames": 4
   },
   "asteroid-small-3": {
-    "sx": 144,
+    "sx": 192,
     "sy": 120,
-    "cols": 3,
+    "cols": 4,
     "tilew": 24,
     "tileh": 24,
-    "frames": 3
+    "frames": 4
   },
 
   "bomb": {
     "sx": 0,
     "sy": 150,
-    "cols": 1,
+    "cols": 3,
     "tilew": 20,
     "tileh": 20,
-    "frames": 1
+    "frames": 3
   },
 
   "pew-pew": {
-    "sx": 24,
+    "sx": 64,
     "sy": 150,
-    "cols": 1,
+    "cols": 2,
     "tilew": 6,
     "tileh": 18,
-    "frames": 1
+    "frames": 2
   },
 
   "saucer-large": {
     "sx": 0,
     "sy": 170,
-    "cols": 4,
+    "cols": 5,
     "tilew": 64,
     "tileh": 36,
-    "frames": 4
+    "frames": 5
   },
 
   "saucer-small": {
     "sx": 256,
     "sy": 170,
-    "cols": 4,
+    "cols": 5,
     "tilew": 64,
     "tileh": 36,
-    "frames": 4
+    "frames": 5
   },
 
   "ship": {
     "sx": 0,
     "sy": 210,
-    "cols": 12,
+    "cols": 13,
     "tilew": 64,
     "tileh": 64,
-    "frames": 12
+    "frames": 13
   }
 }

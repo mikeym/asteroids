@@ -16,12 +16,15 @@
       </header>
 
       <div id="canvasframe">
+        <canvas id="starfieldcanvas" width="640" height="480" tabindex="0"></canvas>
         <canvas id="gamecanvas" width="640" height="480" tabindex="0">
           Alas for your ancient coal-fired browser that doesn't support the canvas element.
           No game for you until you upgrade. Maybe try
           <a href="http://www.mozilla.org/en-US/firefox/new/">Firefox</a> or
           <a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a>.
         </canvas>
+        <div id="gameLives">Lives: <span id="gameLivesNumber">3</span></div>
+        <div id="gameScore">Score: <span id="gameScoreNumber">327</span></div>
       </div>
 
       <h2>Keyboard Controls:</h2>
