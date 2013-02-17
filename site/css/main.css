@@ -233,6 +233,28 @@ a:hover, a:active {
   z-index: 1;
 }
 
+#getLoadedText, #pressSpace, #gameOver {
+  position: absolute;
+  top: 330px;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+}
+
+#pressSpace, #gameOver {
+  display: none;
+}
+
+#getLoadedProgress {
+  position: absolute;
+  top: 355px;
+  left: 232px;
+  width: 10px;
+  height: 1px;
+  text-align: center;
+  background-color: #00dddd;
+}
+
 footer p {
   margin: 10px 10px 20px 10px;
 }

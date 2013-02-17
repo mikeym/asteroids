@@ -48,7 +48,9 @@ Ngine.Animation = function () {
       var animData = Ngine.getInstance().getAnimationData(p.animSetName, p.animationName);
 
       if (!animData) {
-        this.entity.unbindEvent('step', this, 'step');
+        if (this.entity && this.entity.unbindEvent) {
+          this.entity.unbindEvent('step', this, 'step');
+        }
         return;
       }
 

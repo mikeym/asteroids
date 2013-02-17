@@ -76,6 +76,8 @@ asteroids.Ship = Ngine.Sprite.extend({
       linearDamping: 2.0, // a little bit of drag seems to look right
       doSleep: false,
       collisionReported: false,
+      bulletCount: 0, // number of bullets currently visible on the screen
+      bulletMax: 15, // max number of bullets visible on the screen
 
       // Our sprites point up. Radians anticipate a rightward orientation.
       // The offset rotates our angle-sensitive thrust support 90 degrees counterclockwise.
@@ -98,6 +100,8 @@ asteroids.Ship = Ngine.Sprite.extend({
     asteroids.Ngine.input.bind('rightUp', this, 'rotateRightOff');
     asteroids.Ngine.input.bind('shield', this, 'shieldOn');
     asteroids.Ngine.input.bind('shieldUp', this, 'shieldOn');
+    asteroids.Ngine.input.bind('fire', this, 'startShooting');
+    asteroids.Ngine.input.bind('fireUp', this, 'stopShooting');
 
     // Listen for physics system contact with the ship so it can blow up
     this.bind('contact', this, 'contact');
@@ -111,6 +115,7 @@ asteroids.Ship = Ngine.Sprite.extend({
     var p = this.properties;
 
     // recompute angle with each step
+    // TODO shoot while turning
     if (p.rotatingLeft) {
       this.rotateLeftOn();
     } else if (p.rotatingRight) {
@@ -331,7 +336,166 @@ asteroids.Ship = Ngine.Sprite.extend({
         }, 250); // outer timeout
       }
     }
+  },
+
+  // Press spacebar, start shooting. Bang bang. Unless shields are on.
+  startShooting: function() {
+    if (this.properties.shieldsOn === false) {
+      this.shoot(true);
+    }
+  },
+
+  // Release spacebar, stop shooting.
+  stopShooting: function() {
+    this.shoot(false);
+  },
+
+  // When bangin is true, we shoot until we've got the max permitted bullets on the screen.
+  // Bullets recycle themselves after they leave the screen edge. The second bullet
+  // arg is only supplied by the bullet itself.
+  shoot: function(bangin, bullet) {
+    var that = this,
+        p = that.properties,
+        ph = that.physics,
+        stage = asteroids.Game.gameStage,
+        nextBullet;
+
+    if (bangin) {
+      // Less than max number of bullets visible? create a new one.
+      if (p.bulletCount < p.bulletMax) {
+        nextBullet = new asteroids.Bullet(that, p.x, p.y, p.angle);
+        stage.insert(nextBullet);
+        p.bulletCount += 1;
+      }
+    } else {
+      // The bullet has reached the screen edge and let us know it's time to whack it.
+      if (bullet) {
+        stage.remove(bullet);
+        p.bulletCount -= 1;
+      }
+    }
   }
 
 }); // Ship
 
+// The bullet uses a sprite, which is sort of silly, but that's what we gots.
+asteroids.bulletAnimationGroupName = 'bullet';
+asteroids.bulletAnimationSequences = {
+  firing: {
+    frames: [1,1,1,0,1,1,1,1],
+    rate: 1/5
+  },
+  idle: {
+    frames: [1],
+    rate: 1/5
+  }
+};
+
+// Bullet sprite object
+asteroids.Bullet = Ngine.Sprite.extend({
+  name: 'Bullet',
+
+  // The Ship's properties control animations and appearance.
+  // The ship instance, position and angle are supplied.
+  init: function(ship, posX, posY, angle) {
+    this._super({
+      sheetName: asteroids.bulletAnimationGroupName,
+      animSetName: asteroids.bulletAnimationSequences,
+      ship: ship,
+      x: posX,
+      y: posY,
+      origX: posX,
+      origY: posY,
+      angle: angle,
+      rate: 1/60,
+      speed: 100,
+      width: 6,
+      height: 18,
+      shape: 'block',
+      bodyType: 'dynamic',
+      doSleep: false,
+      bullet: true,
+      mass: 10,
+      density: 1,
+      spriteRadianOffset: Math.PI / 2,
+      pixelsToMove: 8,
+      firing: false,
+      isInitializing: true
+    });
+
+    this.addComponent('animation');
+    this.addComponent('physics');
+
+    this.bind('contact', this, 'contact');
+   },
+
+  // Step function creates the initial bullet and interacts with physics.
+  // The step will schedule the bullet for removal if it gets too far downrange.
+  step: function(dt) {
+    var p = this.properties,
+      myBody,
+      cosOfAngle,
+      sinOfAngle,
+      initialVelocity;
+
+
+      if (p.isInitializing) {
+
+      // Translating forward vector around the radian.
+      // Note that 360 degrees = 2 pi radians, 180 = pi, 90 = pi/2
+      myBody = this.physics.getBody();
+      cosOfAngle = Math.cos(p.angle - p.spriteRadianOffset);
+      sinOfAngle = Math.sin(p.angle - p.spriteRadianOffset);
+      p.x += cosOfAngle;
+      p.y += sinOfAngle;
+      this.physics.setAngle(p.angle);
+
+      // Apply a bit of force directly on the object's core to prevent rotation,
+      // and send it on a vector in the direction we want to go.
+      myBody.ApplyImpulse({x: cosOfAngle * 100, y: sinOfAngle * 100},
+        myBody.GetWorldCenter());
+
+      p.isInitializing = false;
+    }
+
+    if (p.firing) {
+      this.play('firing', 1);
+    } else {
+      this.play('idle');
+    }
+
+    this._super(dt);
+    if (initialVelocity === null) {
+      initialVelocity = this.physics.getVelocity();
+    }
+
+    // Short range bullets to avoid wraparounds and other weirdnesses
+    if (Math.abs(p.origX - p.x) > 200) {
+      this.removeBullet();
+    } else if (Math.abs(p.origY - p.y) > 200) {
+      this.removeBullet();
+    } else if (this.physics.getVelocity() < initialVelocity) {
+      this.removeBullet();
+    }
+  },
+
+  // Bullets clobber asteroids
+  // TODO saucers
+  contact: function(contact) {
+    if (contact.name) {
+      if (contact.name === 'LargeAsteroid' ||
+        contact.name === 'MediumAsteroid' ||
+        contact.name === 'SmallAsteroid') {
+        contact.explode(contact);
+        this.removeBullet();
+      }
+    }
+  },
+
+  // Schedules the bullet for removal by the ship
+  removeBullet: function() {
+    this.properties.firing = false;
+    this.properties.ship.shoot(false, this);
+  }
+
+});

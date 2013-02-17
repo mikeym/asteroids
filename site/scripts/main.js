@@ -11,14 +11,11 @@ var asteroids = asteroids || {};
 asteroids.dbug = true;
 
 asteroids.loader = (function () {
-  var that = this,
-      a = asteroids,
-      resourcesLoaded = 0;
+  var a = asteroids,
+      loaderPixelIncrement = 7,
+      $progress = $('#getLoadedProgress');
 
   if (a.dbug) { console.log('asteroids.loader loaded'); }
-
-  // TODO Welcome text
-  // TODO loading progress indicator
 
   Modernizr.load([
     {
@@ -43,6 +40,11 @@ asteroids.loader = (function () {
         'scripts/ngine.animation.js',
         'scripts/ngine.physics.js'
       ],
+
+      callback: function(url, result, key) {
+        var w = $progress.width();
+        $progress.width(w += loaderPixelIncrement);
+      },
 
       // When plugin and engine scripts are loaded, setup the Ngine include modules
       complete: function () {
@@ -80,8 +82,15 @@ asteroids.loader = (function () {
         'scripts/asteroids.small-asteroid.js'
       ],
 
+      callback: function(url, result, key) {
+        var w = $progress.width();
+        $progress.width(w += loaderPixelIncrement);
+      },
+
       // Start the game once they're loaded
       complete: function() {
+        var w = $progress.width();
+        $progress.width(w += loaderPixelIncrement);
         if (a.dbug) { console.log('Asteroids game scripts loaded, now loading assets...'); }
 
         // Load the game sprites and data, then fire the test function
@@ -95,7 +104,11 @@ asteroids.loader = (function () {
 function startAsteroidsGame() {
   var n = Ngine.getInstance(),
       a = asteroids,
-      shipScene;
+      loaderPixelIncrement = 7,
+      $progress = $('#getLoadedProgress'),
+      w = $progress.width() + loaderPixelIncrement;
+
+  $progress.width(w);
 
   // Load the sprites and generate them
   if (a.dbug) { console.log('Compiling Asteroids spritesheet and adding animation data...'); }
@@ -110,11 +123,14 @@ function startAsteroidsGame() {
   n.addAnimationData(a.smallAsteroidAnimationGroupNames[0], a.smallAsteroidAnimationSequences);
   n.addAnimationData(a.smallAsteroidAnimationGroupNames[1], a.smallAsteroidAnimationSequences);
   n.addAnimationData(a.smallAsteroidAnimationGroupNames[2], a.smallAsteroidAnimationSequences);
+  n.addAnimationData(a.bulletAnimationGroupName, a.bulletAnimationSequences);
+
+  $progress.width(w += loaderPixelIncrement);
 
   // Create a scene for testing
   if (a.dbug) { console.log('Starting the game...'); }
 
   // Start a new game
-  a.Game.startNewGame();
+  a.Game.startBrandNewGame();
 
 };

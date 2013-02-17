@@ -63,6 +63,7 @@ asteroids.Game = {
     this.score += bump;
     if(this.score - this.lastExtraLifeGiven >= this.extraLifeThreshold) {
       this.countAvailableLives += 1;
+      this.lastExtraLifeGiven = this.score;
       // TODO fanfare or something
     }
     // Update our scorecard...
@@ -111,8 +112,7 @@ asteroids.Game = {
                       bigAsteroids + ' big asteroids.');
         }
       } else {
-        // TODO prompt to play again, no more lives
-        if (asteroids.dbug) { console.log('Too Bad So Sad Yer Daid.'); }
+        that.gameOver()
       }
     });
 
@@ -130,7 +130,7 @@ asteroids.Game = {
     if (this.countAvailableLives > 0) {
       this.startLevel(this.currentLevel);
     } else {
-      // TODO ask 'em for a quarter, start overs...
+      this.gameOver();
     }
   },
 
@@ -200,16 +200,99 @@ asteroids.Game = {
   },
 
   // Starts a new game and initializes the score
-  startNewGame: function() {
-    this.countAvailableLives = 300000;
-    this.score = 0;
-    $('#gameScoreNumber').html(this.score);
-    $('#gameScore').show();
-    $('#gameLivesNumber').html(this.countAvailableLives);
-    $('#gameLives').show();
+  startBrandNewGame: function() {
+    var that = this,
+        i,
+        n = Ngine.getInstance();
 
-    this.startLevel(0);
+    if (asteroids.dbug) { console.log('Showing brand new game screen.'); }
+
+    // Clear loading text, show spacebar prompt
+    $('#getLoadedText').hide();
+    $('#getLoadedProgress').hide();
+    $('#pressSpace').show();
+
+    // Float a few asteroids around in the background, no ship or score or anything
+    n.clearStages();
+    that.gameScene = new Ngine.Scene(function(stage) {
+      stage.addComponent('world');
+      that.gameStage = stage;
+
+      for (i = 0; i < 4; i++ ) {
+        that.gameStage.insert(new asteroids.LargeAsteroid());
+        that.countLargeAsteroids += 1;
+      }
+    });
+    n.addScene('AsteroidsGame', that.gameScene);
+    n.stageScene('AsteroidsGame');
+
+    // Initialize the scorekeeping
+    this.countAvailableLives = 3;
+    this.score = 0;
+
+    // Wait for a spacebar press, start the game and unbind the namespaced keyup event
+    $('#gameCanvas').focus();
+    $(document)
+      .on('keyup.introSpace32', function(e) {
+        if(e.which && e.which === 32) {
+          $('#pressSpace').hide();
+          $('#gameScoreNumber').html(this.score);
+          $('#gameScore').show();
+          $('#gameLivesNumber').html(this.countAvailableLives);
+          $('#gameLives').show();
+          $(document).off('keyup.introSpace32'); // turn off just this one keyup event
+          that.startLevel(0); // hey let's play
+          e.preventDefault();
+        }
+      });
+  },
+
+  // Aw shucks, yer ded.
+  gameOver: function() {
+    var that = this,
+      i,
+      n = Ngine.getInstance();
+
+    if (asteroids.dbug) { console.log('Game over, dude.'); }
+
+    // Game over message
+    $('#gameOver').show();
+
+    // Float a few asteroids around in the background, no ship or score or anything
+    n.clearStages();
+    that.gameScene = new Ngine.Scene(function(stage) {
+      stage.addComponent('world');
+      that.gameStage = stage;
+
+      for (i = 0; i < 4; i++ ) {
+        that.gameStage.insert(new asteroids.LargeAsteroid());
+        that.countLargeAsteroids += 1;
+      }
+    });
+    n.addScene('AsteroidsGame', that.gameScene);
+    n.stageScene('AsteroidsGame');
+
+    // Initialize the scorekeeping
+    this.countAvailableLives = 3;
+    this.score = 0;
+
+    // Wait for a spacebar press, restart the game and unbind the namespaced keyup event
+    $('#gameCanvas').focus();
+    $(document)
+      .on('keyup.introSpace32', function(e) {
+        if(e.which && e.which === 32) {
+          $('#gameOver').hide();
+          $('#gameScoreNumber').html(this.score);
+          $('#gameScore').show();
+          $('#gameLivesNumber').html(this.countAvailableLives);
+          $('#gameLives').show();
+          $(document).off('keyup.introSpace32'); // turn off just this one keyup event
+          that.startLevel(0); // hey let's play
+          e.preventDefault();
+        }
+      });
   }
+
 };
 
 

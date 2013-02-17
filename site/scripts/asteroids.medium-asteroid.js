@@ -49,7 +49,7 @@ asteroids.MediumAsteroid = Ngine.Sprite.extend({
       linearDamping: 10.0,      // a little bit of drag seems to look right
       density: 75.0,            // big heavy rocks
       mass: 150,                // big heavy rocks
-      howFastItScoots: 3000.0,  // needs a lotta scoot if it's heavy
+      howFastItScoots: 2900.0,  // needs a lotta scoot if it's heavy
       doSleep: false,
       exploding: false,
       isInitializing: true,
@@ -115,8 +115,13 @@ asteroids.MediumAsteroid = Ngine.Sprite.extend({
 
   // When an asteroid hits the ship, let the ship decide what to do.
   contact: function(contact) {
-    if (contact.name && contact.name ==='Ship') {
-      contact.handleContact(contact);
+    if (contact.name) {
+      if (contact.name ==='Ship') {
+        contact.handleContact(contact);
+      } else if (contact.name === 'Bullet') {
+        this.explode(contact);
+        contact.removeBullet();
+      }
     }
   },
 

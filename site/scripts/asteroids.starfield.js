@@ -3,6 +3,8 @@
 // Requires jQuery, otherwise stand-alone.
 // Thanks to lefam: http://codentronix.com/2011/07/22/html5-canvas-3d-starfield/
 
+'use strict';
+
 asteroids = asteroids || {};
 
 // Starfield initializes and runs immediately
@@ -24,7 +26,7 @@ asteroids.starfield = (function() {
     halfWidth = canvasWidth / 2;
     halfHeight = canvasHeight / 2;
     initStars();
-    setInterval(starloop, 60);
+    setInterval(starloop, 75);
   }
 
   // Random value within bounds, called a lot
@@ -71,7 +73,7 @@ asteroids.starfield = (function() {
 
       if (px >= 0 && px <= canvasWidth && py >= 0 && py <= canvasHeight) {
         size = (1 - stars[i].z / 32.0) * 5;
-        shade = parseInt((1 - stars[i].z / 32.0) * 148);
+        shade = parseInt((1 - stars[i].z / 32.0) * 188);
         ctx.fillStyle = 'rgb(' + shade + ',' + shade + ',' + shade + ')';
         ctx.fillRect(px, py, size, size);
       }
