@@ -4,6 +4,10 @@
 // Mikey Micheletti
 // Requires jquery, underscore.js, Box2dWeb.js and the various Ngine modules
 
+// TODO Filter categories for the saucer
+
+'use strict';
+
 var Ngine = Ngine || { },
     asteroids = asteroids || { };
 
@@ -68,14 +72,15 @@ asteroids.Ship = Ngine.Sprite.extend({
       x: 320,
       y: 240,
       angle: 0, // really a radian
-      radiansPerRotation: 0.07, // amount to rotate per turn, either direction
+      radiansPerRotation: 0.0633, // amount to rotate per turn, either direction
 
       shape: 'polygon',
-      shape_points: [[0,-30], [-18,22], [18,22]], // ship without shields is a triangle
+      shape_points: [[0,-26], [-16,20], [16,20]], // ship without shields is a triangle
       bodyType: 'dynamic', // can bump into stuff
       linearDamping: 2.0, // a little bit of drag seems to look right
       doSleep: false,
       collisionReported: false,
+      shooting: false,
       bulletCount: 0, // number of bullets currently visible on the screen
       bulletMax: 15, // max number of bullets visible on the screen
 
@@ -115,7 +120,6 @@ asteroids.Ship = Ngine.Sprite.extend({
     var p = this.properties;
 
     // recompute angle with each step
-    // TODO shoot while turning
     if (p.rotatingLeft) {
       this.rotateLeftOn();
     } else if (p.rotatingRight) {
@@ -182,8 +186,9 @@ asteroids.Ship = Ngine.Sprite.extend({
   // Increment leftward rotation in properties and physics, triggered by left arrow key.
   // Is also called from step() to allow smooth thrusting while turning.
   rotateLeftOn: function() {
-    this.properties.rotatingLeft = true;
-    this.properties.angle -= this.properties.radiansPerRotation;
+    var p = this.properties;
+    p.rotatingLeft = true;
+    p.angle -= this.properties.radiansPerRotation;
     this.physics.setAngle(this.properties.angle);
   },
 
@@ -195,8 +200,9 @@ asteroids.Ship = Ngine.Sprite.extend({
   // Increment rightward rotation in properties and physics, triggered by right arrow key.
   // Is also called from step() to allow smooth thrusting while turning.
   rotateRightOn: function() {
-    this.properties.rotatingRight = true;
-    this.properties.angle += this.properties.radiansPerRotation;
+    var p = this.properties;
+    p.rotatingRight = true;
+    p.angle += this.properties.radiansPerRotation;
     this.physics.setAngle(this.properties.angle);
   },
 
@@ -307,13 +313,16 @@ asteroids.Ship = Ngine.Sprite.extend({
   handleContact: function (contact) {
     var that = this;
 
-    // Shields make the other asteroids explode
+    // Shields make the other objects explode
     if (that.properties.shieldsOn === true) {
       if (contact.name) {
         if (contact.name === 'LargeAsteroid' ||
             contact.name === 'MediumAsteroid' ||
-            contact.name === 'SmallAsteroid') {
+            contact.name === 'SmallAsteroid' ||
+            contact.name === 'LargeSaucer' ||
+            contact.name === 'Bomb') {
           contact.explode(contact);
+          // Shields are supposed to go off after first contact, but ship keeps blowed up :-(
         }
       }
     } else {
@@ -341,12 +350,14 @@ asteroids.Ship = Ngine.Sprite.extend({
   // Press spacebar, start shooting. Bang bang. Unless shields are on.
   startShooting: function() {
     if (this.properties.shieldsOn === false) {
+      this.properties.shooting = true;
       this.shoot(true);
     }
   },
 
   // Release spacebar, stop shooting.
   stopShooting: function() {
+    this.properties.shooting = false;
     this.shoot(false);
   },
 
@@ -368,7 +379,7 @@ asteroids.Ship = Ngine.Sprite.extend({
         p.bulletCount += 1;
       }
     } else {
-      // The bullet has reached the screen edge and let us know it's time to whack it.
+      // The bullet has let us know it's time to whack it.
       if (bullet) {
         stage.remove(bullet);
         p.bulletCount -= 1;
@@ -480,12 +491,13 @@ asteroids.Bullet = Ngine.Sprite.extend({
   },
 
   // Bullets clobber asteroids
-  // TODO saucers
   contact: function(contact) {
     if (contact.name) {
       if (contact.name === 'LargeAsteroid' ||
         contact.name === 'MediumAsteroid' ||
-        contact.name === 'SmallAsteroid') {
+        contact.name === 'SmallAsteroid' ||
+        contact.name === 'LargeSaucer' ||
+        contact.name === 'Bomb') {
         contact.explode(contact);
         this.removeBullet();
       }

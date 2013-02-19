@@ -95,14 +95,14 @@
   "saucer-large": {
     "sx": 0,
     "sy": 170,
-    "cols": 5,
+    "cols": 7,
     "tilew": 64,
     "tileh": 36,
-    "frames": 5
+    "frames": 7
   },
 
   "saucer-small": {
-    "sx": 256,
+    "sx": 448,
     "sy": 170,
     "cols": 5,
     "tilew": 64,

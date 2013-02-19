@@ -39,6 +39,8 @@ asteroids.Game = {
 
   // Start out with four large asteroids, increase by one each level up to a max of 12
   currentLevel: 0,
+  currentLevelId: 0, // set to random value when level is created, for interval control
+  largeSaucerIntervalId: null, // identifies saucer interval associated with a specific level
   numberOfLargeAsteroidsInFirstLevel: 4,
   maxLargeAsteroidsToStartALevel: 12,
 
@@ -82,7 +84,8 @@ asteroids.Game = {
         i,
         n = Ngine.getInstance(),
         bigAsteroids = Math.min(this.numberOfLargeAsteroidsInFirstLevel + levelNumber,
-                                this.maxLargeAsteroidsToStartALevel);
+                                this.maxLargeAsteroidsToStartALevel),
+        currentLevelId = new Date().getTime();
 
     // cleanup and make all the old stuff go away
     n.clearStages();
@@ -93,6 +96,12 @@ asteroids.Game = {
     that.countSmallAsteroids = 0;
     that.countLargeSaucers = 0;
     that.countSmallSaucers = 0;
+
+    // cancel any previous saucer launch interval
+    if (that.largeSaucerIntervalId) {
+      clearInterval(that.largeSaucerIntervalId);
+      that.largeSaucerIntervalId = null;
+    }
 
     // create a new game scene
     that.gameScene = new Ngine.Scene(function(stage) {
@@ -111,6 +120,13 @@ asteroids.Game = {
           console.log('Game Level ' + levelNumber + ' started with ' +
                       bigAsteroids + ' big asteroids.');
         }
+
+        // Launch a large saucer every so often
+        that.largeSaucerIntervalId = setInterval(function() {
+          that.gameStage.insert(new asteroids.LargeSaucer());
+          that.countLargeSaucers += 1;
+        }, 25000);
+
       } else {
         that.gameOver()
       }
@@ -176,24 +192,22 @@ asteroids.Game = {
   // Called when a large saucer explodes, may indicate we've cleared the level
   handleLargeSaucerExplosion: function() {
     this.bumpScore(this.largeSaucerScoreBump);
-    if (this.hasClearedLevel) {
+    this.countLargeSaucers -= 1;
+    if (this.hasClearedLevel()) {
       this.currentLevel += 1;
       this.startLevel(this.currentLevel);
     }
-
-    // TODO add another saucer after a timer?
-    // TODO add a small saucer instead? How do you decide?
   },
 
   // Called when a small saucer explodes, may indicate we've cleared the level
-  handleSmallSaucerExplosion: function() {
-    this.bumpScore(this.smallSaucerScoreBump);
-    if (this.hasClearedLevel) {
-      this.currentLevel += 1;
-      this.startLevel(this.currentLevel);
-    }
-    // TODO add another saucer after a timer?
-  },
+  // TODO implement small saucer
+//  handleSmallSaucerExplosion: function() {
+//    this.bumpScore(this.smallSaucerScoreBump);
+//    if (this.hasClearedLevel) {
+//      this.currentLevel += 1;
+//      this.startLevel(this.currentLevel);
+//    }
+//  },
 
   handleMenu: function() {
     // TODO show the menu if we have one, pause game
@@ -257,6 +271,12 @@ asteroids.Game = {
 
     // Game over message
     $('#gameOver').show();
+
+    // cancel any previous saucer launch interval
+    if (that.largeSaucerIntervalId) {
+      clearInterval(that.largeSaucerIntervalId);
+      that.largeSaucerIntervalId = null;
+    }
 
     // Float a few asteroids around in the background, no ship or score or anything
     n.clearStages();

@@ -106,7 +106,7 @@ Ngine.Sprites = function() {
 
       // back to normal
       ctx.restore();
-    },
+    }
 
   }); // Spritesheet
 

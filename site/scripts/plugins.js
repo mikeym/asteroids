@@ -1,4 +1,5 @@
 // Polyfills and other accommodations for Asteroids game
+// Other Peoples' Code so not strict
 
 var asteroids = asteroids || {};
 if (asteroids.dbug) { console.log( 'asteroids.plugins loaded' ); }

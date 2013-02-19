@@ -4,6 +4,8 @@
 // Mikey Micheletti
 // Requires jquery, underscore.js, Box2dWeb.js and the various Ngine modules
 
+'use strict';
+
 var Ngine = Ngine || { },
   asteroids = asteroids || { };
 
@@ -44,7 +46,7 @@ asteroids.MediumAsteroid = Ngine.Sprite.extend({
       y: lastPosition.y * Ngine.PhysicsWorldDefaults.scale,
       angle: lastAngle * Math.random() * (Math.PI / 2),
       shape: 'circle',
-      shape_radius: 32,         // larger than the sprite graphic so we get edge collisions
+      shape_radius: 20,
       bodyType: 'dynamic',      // can bump into stuff
       linearDamping: 10.0,      // a little bit of drag seems to look right
       density: 75.0,            // big heavy rocks
@@ -55,7 +57,8 @@ asteroids.MediumAsteroid = Ngine.Sprite.extend({
       isInitializing: true,
       fixedRotation: false,
       leftToRight: Math.random() * 2 > 1,
-      collisionReported: false
+      collisionReported: false,
+      isSensor: true // detect collisions but don't bounce, just overlap like in the olden days
     });
 
     p = this.properties;
@@ -88,7 +91,6 @@ asteroids.MediumAsteroid = Ngine.Sprite.extend({
     if (p.isInitializing) {
       myBody = this.physics.getBody();
       worldCenter = myBody.GetWorldCenter();
-      randomPointOnBody = myBody.GetWorldPoint(new Ngine.B2d.Vec(10, 2));
 
       // Physics/entity angles match
       this.physics.setAngle(p.angle);

@@ -56,9 +56,6 @@ Ngine.Physics = function() {
     friction: 0.1,
     restitution: 0.001,
     sSensor: false
-    // shape_radius,
-    // shape_width,
-    // shape_height
   };
 
   // PhysicsWorldComponent
@@ -510,22 +507,22 @@ Ngine.Physics = function() {
         // Asteroids-specific game viewport wrapping, could probably put inside a switch
 
         // Left / right edge wrapping
-        if (properties.x + (entityWidth / 2) < slipPixels) {
+        if (properties.x + (entityWidth / 3) < slipPixels) {
           properties.x = canvasWidth;
           desiredPosX = properties.x / stageScale;
           resetPosition = true;
-        } else if ((properties.x - (entityWidth / 2)) > (canvasWidth - slipPixels)) {
+        } else if ((properties.x - (entityWidth / 3)) > (canvasWidth - slipPixels)) {
           properties.x = slipPixels;
           desiredPosX = properties.x / stageScale;
           resetPosition = true;
         }
 
         // Top/bottom edge wrapping
-        if (properties.y + (entityHeight / 2) < slipPixels) {
+        if (properties.y + (entityHeight / 3) < slipPixels) {
           properties.y = canvasHeight;
           desiredPosY = properties.y / stageScale;
           resetPosition = true;
-        } else if ((properties.y - (entityHeight / 2)) > (canvasHeight - slipPixels)) {
+        } else if ((properties.y - (entityHeight / 3)) > (canvasHeight - slipPixels)) {
           properties.y = slipPixels;
           desiredPosY = properties.y / stageScale;
           resetPosition = true;

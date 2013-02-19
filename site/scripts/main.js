@@ -79,7 +79,8 @@ asteroids.loader = (function () {
         'scripts/asteroids.ship.js',
         'scripts/asteroids.large-asteroid.js',
         'scripts/asteroids.medium-asteroid.js',
-        'scripts/asteroids.small-asteroid.js'
+        'scripts/asteroids.small-asteroid.js',
+        'scripts/asteroids.saucer.js'
       ],
 
       callback: function(url, result, key) {
@@ -124,6 +125,8 @@ function startAsteroidsGame() {
   n.addAnimationData(a.smallAsteroidAnimationGroupNames[1], a.smallAsteroidAnimationSequences);
   n.addAnimationData(a.smallAsteroidAnimationGroupNames[2], a.smallAsteroidAnimationSequences);
   n.addAnimationData(a.bulletAnimationGroupName, a.bulletAnimationSequences);
+  n.addAnimationData(a.largeSaucerAnimationGroupName, a.largeSaucerAnimationSequences);
+  n.addAnimationData(a.bombAnimationGroupName, a.bombAnimationSequences);
 
   $progress.width(w += loaderPixelIncrement);
 
