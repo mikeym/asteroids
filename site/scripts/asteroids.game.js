@@ -301,6 +301,10 @@ asteroids.Game = {
     $(document)
       .on('keyup.introSpace32', function(e) {
         if(e.which && e.which === 32) {
+          // Initialize the scorekeeping for the new game
+          this.countAvailableLives = 3;
+          this.score = 0;
+
           $('#gameOver').hide();
           $('#gameScoreNumber').html(this.score);
           $('#gameScore').show();
